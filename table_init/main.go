@@ -7,7 +7,7 @@ import (
 
 func main() {
 	var engine = core.GetEngine(
-		core.Lightweight,   // 不启用gin
+		core.NonGin,        // 不启用gin
 		core.MultiDatabase, // 多数据源
 	)
 
