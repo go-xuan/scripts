@@ -1,0 +1,101 @@
+[2024-05-11 15:31:50.566][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-11 15:31:50.567][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-11 15:31:50.66 ][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-11 15:31:50.664][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-11 15:31:50.664][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-11 15:39:12.098][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-11 15:39:12.099][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-11 15:39:12.189][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-11 15:39:12.191][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-11 15:39:12.192][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-11 16:08:43.487][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-11 16:08:43.488][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-11 16:08:43.577][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-11 16:08:43.579][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-11 16:08:43.579][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-11 16:23:31.876][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-11 16:23:31.876][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-11 16:23:31.952][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-11 16:23:31.954][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-11 16:23:31.954][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 11:28:46.097][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 11:28:46.098][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 11:28:46.184][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-20 11:28:46.191][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 11:28:46.191][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 12:09:27.972][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 12:09:27.972][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 12:09:28.045][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-20 12:09:28.047][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 12:09:28.047][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 14:26:49.994][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 14:26:49.994][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 14:26:50.065][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-20 14:26:50.067][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 14:26:50.067][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 14:26:50.096][error ][OPPO-FIND-17]Create Table Failed
+[2024-05-20 14:29:59.494][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 14:29:59.494][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 14:29:59.545][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-20 14:29:59.546][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 14:29:59.546][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 14:30:20.192][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 14:30:20.192][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 14:30:20.281][info  ][OPPO-FIND-17]Database Connect Successful: source=quan_demo type=postgres host=localhost port=5432 database=quan_demo debug=true
+[2024-05-20 14:30:20.283][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 14:30:20.283][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 14:31:52.72 ][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 14:31:52.72 ][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 14:31:52.801][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 14:31:52.803][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 14:31:52.803][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 15:21:33.402][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 15:21:33.402][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 15:21:33.473][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 15:21:33.475][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 15:21:33.475][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 16:29:55.785][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 16:29:55.785][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 16:29:55.859][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 16:29:55.862][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 16:29:55.862][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 16:30:48.484][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 16:30:48.484][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 16:30:48.556][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 16:30:48.558][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 16:30:48.558][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 16:31:59.117][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 16:31:59.118][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 16:31:59.193][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 16:31:59.195][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 16:31:59.195][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 17:57:11.448][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 17:57:11.449][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 17:57:11.529][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 17:57:11.532][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 17:57:11.532][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 17:57:36.211][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 17:57:36.212][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 17:57:36.314][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 17:57:36.317][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 17:57:36.317][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 17:59:11.144][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 17:59:11.144][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 17:59:11.222][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 17:59:11.224][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 17:59:11.224][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 18:01:36.172][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 18:01:36.172][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 18:01:36.275][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 18:01:36.277][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 18:01:36.277][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 18:02:48.508][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 18:02:48.508][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 18:02:48.587][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 18:02:48.592][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 18:02:48.592][info  ][OPPO-FIND-17]Database Run Completed!
+[2024-05-20 18:03:05.165][info  ][OPPO-FIND-17]Log Init Successful: logPath=resource\log\app.log level=info output=default maxSize=100 maxAge=1 backups=10
+[2024-05-20 18:03:05.166][info  ][OPPO-FIND-17]Log Run Completed!
+[2024-05-20 18:03:05.243][info  ][OPPO-FIND-17]Database Connect Successful: source=screen type=postgres host=localhost port=5432 database=screen debug=true
+[2024-05-20 18:03:05.245][info  ][OPPO-FIND-17]Database Connect Successful: source=hbkj type=mysql host=localhost port=3306 database=lightapps debug=true
+[2024-05-20 18:03:05.245][info  ][OPPO-FIND-17]Database Run Completed!

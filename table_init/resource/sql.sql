@@ -1,0 +1,11 @@
+ALTER TABLE  edu_app_rlzy_jbxx_sjb ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  edu_app_rlzy_jbxx_sjb_xzjl ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  edu_app_rlzy_jbxx_xzmb ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  edu_app_rlzy_jbxx_xzzd ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  hr_confirm_task_record ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  hr_confirm_task ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  hr_confirm_task_person ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  hr_confirm_task_workflow ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  hr_scoring ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  hr_scoring_indicator ALTER COLUMN "id" DROP DEFAULT;
+ALTER TABLE  hr_scoring_person ALTER COLUMN "id" DROP DEFAULT;

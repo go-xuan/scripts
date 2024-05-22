@@ -1,0 +1,22 @@
+restic:
+  # 备份读取目录
+  backupPath: restic_backup
+  # 备份存储库，如果配置了 export RESTIC_REPOSITORY="*******" 环境变量，此配置可置空
+#  repository: "s3:http://192.168.2.249:9000/restic"
+  # 存储库密码保存文件 如果配置了 export RESTIC_PASSWORD="*******" 环境变量，此配置可置空
+  passwordFile: restic_repo_password
+  # 定时表达式，如果只需要执行一次，此项配置需置空
+#  cron: "0 0 1 * * ?"
+dataSource:
+#  - type: mysql
+#    host: 192.168.2.250
+#    port: 3306
+#    username: root
+#    password: redbird@123
+#    database: ticket
+  - type: mongo
+    host: 127.0.0.1
+    port: 27017
+    username: cgywtb_ticketManage
+    password: n5qxo0c7tHSI6DtM
+    database: cgywtb_ticketManage
