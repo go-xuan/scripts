@@ -22,7 +22,7 @@ func main() {
 	// 将sql转为select对象
 	//fmtSql := sqlx.SqlFormat(string(bytes))
 	s := sqlx.Format(string(bytes))
-	fmtSql := s.ToString()
+	fmtSql := s.String()
 	fmt.Println(fmtSql)
 	// 覆盖原SQL
 	if err = filex.WriteFile("output.sql", fmtSql); err != nil {
