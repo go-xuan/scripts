@@ -1,7 +1,6 @@
 package entity
 
 import (
-	"fmt"
 	"github.com/go-xuan/pinyin"
 	"github.com/go-xuan/quanx/types/intx"
 	"github.com/go-xuan/quanx/utils/idx"
@@ -115,7 +114,6 @@ func (s ScreenIndicesStats) InitData() any {
 
 	for _, item := range data {
 		py := pinyin.NewPinyin(item.Name).Fmt(pinyin.NoTone).Convert()
-		fmt.Println(item.Name, py)
 		pys := strings.Split(py, " ")
 		var key string
 		for _, p := range pys {
