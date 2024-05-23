@@ -14,6 +14,7 @@ func main() {
 	engine.AddSourceTable("screen",
 		&entity.ScreenIndicesStats{},
 		&entity.EnrollStudentsStats{},
+		&entity.SubjectConstruction{},
 	)
 	//
 	//engine.AddSourceTable("hbkj",

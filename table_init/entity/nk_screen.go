@@ -1,8 +1,11 @@
 package entity
 
 import (
+	"github.com/go-xuan/pinyin"
+	"github.com/go-xuan/quanx/types/intx"
 	"github.com/go-xuan/quanx/utils/idx"
 	"github.com/go-xuan/quanx/utils/randx"
+	"strings"
 	"time"
 )
 
@@ -10,6 +13,7 @@ type ScreenIndicesStats struct {
 	Id    int64   `json:"id" gorm:"type:bigint; comment:主键ID;"`
 	Class string  `json:"class" gorm:"type:varchar(100); not null; comment:指标分类;"`
 	Name  string  `json:"name" gorm:"type:varchar(100); not null; comment:指标名称;"`
+	Key   string  `json:"key" gorm:"type:varchar(100); not null; comment:指标KEY;"`
 	Value float64 `json:"value" gorm:"type:float4; comment:指标值;"`
 	Unit  string  `json:"unit" gorm:"type:varchar(20); comment:指标单位;"`
 	Index int     `json:"index" gorm:"type:smallint; not null; comment:排序下标;"`
@@ -91,7 +95,7 @@ func (s ScreenIndicesStats) InitData() any {
 	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "财务资产", Name: "学校固定资产原值", Value: 1142973.4, Unit: "万元", Index: idx.Sequence().NextVal("财务资产")})
 	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "财务资产", Name: "设备资产总值", Value: randx.Float64Range(1000000, 2000000, 2), Unit: "万元", Index: idx.Sequence().NextVal("财务资产")})
 	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "财务资产", Name: "大型仪器设备数", Value: randx.Float64Range(10000, 20000, 0), Unit: "个", Index: idx.Sequence().NextVal("财务资产")})
-	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "财务资产", Name: "图书数（册）", Value: 6241405, Unit: "册", Index: idx.Sequence().NextVal("财务资产")})
+	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "财务资产", Name: "图书数", Value: 6241405, Unit: "册", Index: idx.Sequence().NextVal("财务资产")})
 	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "财务资产", Name: "学校占地总面积", Value: 505.5, Unit: "万平方米", Index: idx.Sequence().NextVal("财务资产")})
 	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "财务资产", Name: "公共教室数量", Value: randx.Float64Range(5000, 1000, 0), Unit: "间", Index: idx.Sequence().NextVal("财务资产")})
 	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "财务资产", Name: "校舍建筑面积", Value: 218.58, Unit: "万平方米", Index: idx.Sequence().NextVal("财务资产")})
@@ -108,15 +112,29 @@ func (s ScreenIndicesStats) InitData() any {
 	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "学校占地总面积", Name: "泰达校区占地", Value: 6.7, Unit: "万平方米", Index: idx.Sequence().NextVal("学校占地总面积")})
 	data = append(data, &ScreenIndicesStats{Id: idx.SnowFlake().Int64(), Class: "学校占地总面积", Name: "滨海学院占地", Value: 59.5, Unit: "万平方米", Index: idx.Sequence().NextVal("学校占地总面积")})
 
+	for _, item := range data {
+		py := pinyin.NewPinyin(item.Name).Fmt(pinyin.NoTone).Convert()
+		pys := strings.Split(py, " ")
+		var key string
+		for _, p := range pys {
+			if len(p) > 1 {
+				key = key + p[0:1]
+			} else {
+				key = key + p
+			}
+		}
+		item.Key = key
+	}
+
 	return data
 }
 
 type EnrollStudentsStats struct {
-	Year            int `json:"year" gorm:"type:int4; comment:年份;"`
+	Year            int `json:"year" gorm:"type:int4; primary_key; comment:年份;"`
 	Undergraduate   int `json:"undergraduate" gorm:"type:int4; not null; comment:本科生;"`
 	MasterStudent   int `json:"masterStudent" gorm:"type:int4; not null; comment:硕士生;"`
 	DoctoralStudent int `json:"doctoralStudent" gorm:"type:int4; not null; comment:博士生;"`
-	Total           int `json:"unit" gorm:"type:int4; not null; comment:总人数;"`
+	OverseasStudent int `json:"overseasStudent" gorm:"type:int4; not null; comment:留学生;"`
 }
 
 func (e EnrollStudentsStats) TableName() string {
@@ -131,8 +149,46 @@ func (e EnrollStudentsStats) InitData() any {
 	var data []*EnrollStudentsStats
 	year := time.Now().Year()
 	for i := 0; i < 5; i++ {
-		u, m, d := randx.IntRange(10000, 20000), randx.IntRange(2000, 5000), randx.IntRange(1000, 2000)
-		data = append(data, &EnrollStudentsStats{Year: year - i, Undergraduate: u, MasterStudent: m, DoctoralStudent: d, Total: u + m + d})
+		u := randx.IntRange(10000, 20000)
+		m := randx.IntRange(2000, 5000)
+		d := randx.IntRange(1000, 2000)
+		o := randx.IntRange(1000, 2000)
+		data = append(data, &EnrollStudentsStats{
+			Year:            year - i,
+			Undergraduate:   u,
+			MasterStudent:   m,
+			DoctoralStudent: d,
+			OverseasStudent: o,
+		})
+	}
+	return data
+}
+
+type SubjectConstruction struct {
+	Id    int64  `json:"id" gorm:"type:bigint; comment:主键ID;"`
+	Name  string `json:"name" gorm:"type:varchar(100); not null; comment:学科名称;"`
+	Unit  string `json:"unit" gorm:"type:varchar(100); not null; comment:建设单位;"`
+	Index int    `json:"index" gorm:"type:smallint; not null; comment:排序下标;"`
+}
+
+func (e SubjectConstruction) TableName() string {
+	return "subject_construction"
+}
+
+func (e SubjectConstruction) TableComment() string {
+	return "学科建设表"
+}
+
+func (e SubjectConstruction) InitData() any {
+	var data []*SubjectConstruction
+	for i := 1; i <= 10; i++ {
+		no := intx.String(i)
+		data = append(data, &SubjectConstruction{
+			Id:    idx.SnowFlake().Int64(),
+			Name:  "学科名称" + no,
+			Unit:  "建设单位" + no,
+			Index: idx.Sequence().NextVal("学科建设表"),
+		})
 	}
 	return data
 }
