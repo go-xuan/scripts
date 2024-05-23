@@ -4,7 +4,10 @@ go 1.22
 
 replace github.com/go-xuan/quanx v1.0.0 => ../../quanx
 
-require github.com/go-xuan/quanx v1.0.0
+require (
+	github.com/go-xuan/pinyin v1.0.0
+	github.com/go-xuan/quanx v1.0.0
+)
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
@@ -25,7 +28,6 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.20.0 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
-	github.com/go-xuan/pinyin v1.0.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect

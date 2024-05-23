@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"fmt"
 	"github.com/go-xuan/pinyin"
 	"github.com/go-xuan/quanx/types/intx"
 	"github.com/go-xuan/quanx/utils/idx"
@@ -114,19 +115,32 @@ func (s ScreenIndicesStats) InitData() any {
 
 	for _, item := range data {
 		py := pinyin.NewPinyin(item.Name).Fmt(pinyin.NoTone).Convert()
+		fmt.Println(item.Name, py)
 		pys := strings.Split(py, " ")
 		var key string
 		for _, p := range pys {
-			if len(p) > 1 {
-				key = key + p[0:1]
-			} else {
-				key = key + p
+			if v, ok := stm[p]; ok {
+				key = key + v
+			} else if len(p) > 1 {
+				key = key + p[:1]
 			}
 		}
 		item.Key = key
 	}
-
 	return data
+}
+
+var stm = map[string]string{
+	"ESI": "ESI",
+	"1%":  "1%",
+	"SCI": "SCI",
+	"5":   "5",
+	"/":   "/",
+	"、":   "/",
+	"‘":   "",
+	"’":   "",
+	"2.0": "2.0",
+	"45":  "45",
 }
 
 type EnrollStudentsStats struct {
