@@ -10,13 +10,14 @@ import (
 )
 
 type ScreenIndicesStats struct {
-	Id    int64   `json:"id" gorm:"type:bigint; comment:主键ID;"`
-	Class string  `json:"class" gorm:"type:varchar(100); not null; comment:指标分类;"`
-	Name  string  `json:"name" gorm:"type:varchar(100); not null; comment:指标名称;"`
-	Key   string  `json:"key" gorm:"type:varchar(100); not null; comment:指标KEY;"`
-	Value float64 `json:"value" gorm:"type:float4; comment:指标值;"`
-	Unit  string  `json:"unit" gorm:"type:varchar(20); comment:指标单位;"`
-	Index int     `json:"index" gorm:"type:smallint; not null; comment:排序下标;"`
+	Id         int64     `json:"id" gorm:"type:bigint; comment:主键ID;"`
+	Class      string    `json:"class" gorm:"type:varchar(100); not null; comment:指标分类;"`
+	Name       string    `json:"name" gorm:"type:varchar(100); not null; comment:指标名称;"`
+	Key        string    `json:"key" gorm:"type:varchar(100); not null; comment:指标KEY;"`
+	Value      float64   `json:"value" gorm:"type:float4; comment:指标值;"`
+	Unit       string    `json:"unit" gorm:"type:varchar(20); comment:指标单位;"`
+	Index      int       `json:"index" gorm:"type:smallint; not null; comment:排序下标;"`
+	UpdateTime time.Time `json:"updateTime" gorm:"type:timestamp; default:now(); comment:更新时间;"`
 }
 
 func (s ScreenIndicesStats) TableName() string {
@@ -142,11 +143,12 @@ var stm = map[string]string{
 }
 
 type EnrollStudentsStats struct {
-	Year            int `json:"year" gorm:"type:int4; primary_key; comment:年份;"`
-	Undergraduate   int `json:"undergraduate" gorm:"type:int4; not null; comment:本科生;"`
-	MasterStudent   int `json:"masterStudent" gorm:"type:int4; not null; comment:硕士生;"`
-	DoctoralStudent int `json:"doctoralStudent" gorm:"type:int4; not null; comment:博士生;"`
-	OverseasStudent int `json:"overseasStudent" gorm:"type:int4; not null; comment:留学生;"`
+	Year            int       `json:"year" gorm:"type:int4; primary_key; comment:年份;"`
+	Undergraduate   int       `json:"undergraduate" gorm:"type:int4; not null; comment:本科生;"`
+	MasterStudent   int       `json:"masterStudent" gorm:"type:int4; not null; comment:硕士生;"`
+	DoctoralStudent int       `json:"doctoralStudent" gorm:"type:int4; not null; comment:博士生;"`
+	OverseasStudent int       `json:"overseasStudent" gorm:"type:int4; not null; comment:留学生;"`
+	UpdateTime      time.Time `json:"updateTime" gorm:"type:timestamp; default:now(); comment:更新时间;"`
 }
 
 func (e EnrollStudentsStats) TableName() string {
@@ -177,10 +179,11 @@ func (e EnrollStudentsStats) InitData() any {
 }
 
 type SubjectConstruction struct {
-	Id    int64  `json:"id" gorm:"type:bigint; comment:主键ID;"`
-	Name  string `json:"name" gorm:"type:varchar(100); not null; comment:学科名称;"`
-	Unit  string `json:"unit" gorm:"type:varchar(100); not null; comment:建设单位;"`
-	Index int    `json:"index" gorm:"type:smallint; not null; comment:排序下标;"`
+	Id         int64     `json:"id" gorm:"type:bigint; comment:主键ID;"`
+	Name       string    `json:"name" gorm:"type:varchar(100); not null; comment:学科名称;"`
+	Unit       string    `json:"unit" gorm:"type:varchar(100); not null; comment:建设单位;"`
+	Index      int       `json:"index" gorm:"type:smallint; not null; comment:排序下标;"`
+	UpdateTime time.Time `json:"updateTime" gorm:"type:timestamp; default:now(); comment:更新时间;"`
 }
 
 func (e SubjectConstruction) TableName() string {

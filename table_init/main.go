@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/go-xuan/quanx/core"
+	"github.com/go-xuan/quanx/app"
 	"table-init/entity"
 )
 
 func main() {
-	var engine = core.GetEngine(
-		core.NonGin,        // 不启用gin
-		core.MultiDatabase, // 多数据源
+	var engine = app.NewEngine(
+		app.NonGin,        // 不启用gin
+		app.MultiDatabase, // 多数据源
 	)
 
 	engine.AddSourceTable("screen",
