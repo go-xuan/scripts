@@ -1,20 +1,20 @@
 package common
 
-const (
-	Common      = "common.tmpl"
-	Controller  = "controller.tmpl"
-	Logic       = "logic.tmpl"
-	Dao         = "dao.tmpl"
-	Model       = "model.tmpl"
-	ModelDo     = "model_do.tmpl"
-	ModelEntity = "model_entity.tmpl"
-	Router      = "router.tmpl"
-	Cmd         = "cmd.tmpl"
-)
+// tmplName
+type TmplName string
 
-var GoQuanTmpls = []string{Common, Controller, Logic, Dao, Model, ModelEntity, Router}
-var GoFrameCodes = []string{Common, Controller, Logic, Dao, Model, ModelDo, ModelEntity, Router, Cmd}
-var SpringBootCodes = []string{Common, Controller, Logic, Dao, Model, ModelDo, ModelEntity, Router, Cmd}
+const (
+	ConstsTmpl      = "consts.tmpl"
+	ConfigTmpl      = "config.tmpl"
+	ControllerTmpl  = "controller.tmpl"
+	LogicTmpl       = "logic.tmpl"
+	DaoTmpl         = "dao.tmpl"
+	ModelTmpl       = "model.tmpl"
+	ModelDoTmpl     = "model_do.tmpl"
+	ModelEntityTmpl = "model_entity.tmpl"
+	RouterTmpl      = "router.tmpl"
+	CmdTmpl         = "cmd.tmpl"
+)
 
 // 随机数生成器-数据类型
 const (

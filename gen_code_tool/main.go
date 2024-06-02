@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-
+	"gen_code_tool/adapter"
 	"github.com/go-xuan/quanx/utils/marshalx"
 
 	"gen_code_tool/common"
@@ -30,22 +30,7 @@ func main() {
 	}
 
 	// 代码生成
-	if err = GenCode(); err != nil {
+	if err = adapter.GenCodes(common.Conf.NewAdapter()); err != nil {
 		panic(err)
 	}
-}
-
-func GenCode() (err error) {
-	// 1、查询应用数据库，获取需要生成代码的表结构
-	//var tables = make(map[string]*model.Table)
-	//if tables, err = GetTables(); err != nil {
-	//	return
-	//}
-	//for _, table := range tables {
-	//
-	//}
-	// 2、获取代码模板
-	// 3、根据代码模板生成代码
-	// 4、输出到指定目录
-	return
 }

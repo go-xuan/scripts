@@ -1,7 +1,9 @@
 package adapter
 
 import (
+	"bytes"
 	"embed"
+	"github.com/go-xuan/quanx/os/filex"
 	"path/filepath"
 	"text/template"
 
@@ -21,22 +23,22 @@ type TemplateAdapter struct {
 //go:embed resource/template/*
 var TemplateFs embed.FS
 
-func NewTemplateAdapter(conf *common.Config, frame string, tmpls []string) *TemplateAdapter {
-	if len(tmpls) > 0 {
-		var adapter = &TemplateAdapter{App: conf.App, Root: conf.Root}
+func NewTemplateAdapter(conf *common.Config, frame string, tmplNames []string) *TemplateAdapter {
+	if len(tmplNames) > 0 {
+		var adapter = &TemplateAdapter{App: conf.App, Root: conf.Root()}
 		var err error
-		if adapter.Tables, err = db.GetTables(conf.Database, conf.GetTableNames()); err != nil {
+		if adapter.Tables, err = db.QueryTables(conf.Database, conf.GetTableNames()); err != nil {
 			panic(err)
 		}
 		var funcMap = template.FuncMap{
-			"UC":    stringx.ToUpperCamel,
-			"LC":    stringx.ToLowerCamel,
-			"DB2Go": common.DB2GoType,
+			"UC":  stringx.ToUpperCamel,
+			"LC":  stringx.ToLowerCamel,
+			"DTG": common.DB2GoType,
 		}
 		var templates = make(map[string]*template.Template)
-		for _, tmpl := range tmpls {
-			path := filepath.Join(frame, tmpl)
-			templates[tmpl] = template.Must(template.New(path).Funcs(funcMap).ParseFS(TemplateFs, path))
+		for _, tmplName := range tmplNames {
+			path := filepath.Join(frame, tmplName)
+			templates[tmplName] = template.Must(template.New(path).Funcs(funcMap).ParseFS(TemplateFs, path))
 		}
 		adapter.Templates = templates
 		return adapter
@@ -44,22 +46,77 @@ func NewTemplateAdapter(conf *common.Config, frame string, tmpls []string) *Temp
 	return nil
 }
 
-func (a *TemplateAdapter) GenCommon() {
+func GenCodeByTemplate(template *template.Template, data any, path string) (err error) {
+	var buf = &bytes.Buffer{}
+	if err = template.Execute(buf, data); err != nil {
+		return
+	}
+	if err = filex.WriteFile(path, buf.String()); err != nil {
+		return
+	}
+	return
+}
+
+func (a *TemplateAdapter) GenCommon() (err error) {
+	if tmpl, ok := a.Templates[common.ConstsTmpl]; ok {
+		if err = GenCodeByTemplate(tmpl, nil, filepath.Join(a.Root, "common", "consts.go")); err != nil {
+			return
+		}
+	}
+	return
+}
+
+func (a *TemplateAdapter) GenController() (err error) {
+	if tmpl, ok := a.Templates[common.ControllerTmpl]; ok {
+		for _, table := range a.Tables {
+			if err = GenCodeByTemplate(tmpl, table, filepath.Join(a.Root, "controller", table.Name+".go")); err != nil {
+				return
+			}
+		}
+	}
+	return
 
 }
 
-func (a *TemplateAdapter) GenController() {
+func (a *TemplateAdapter) GenLogic() (err error) {
+	if tmpl, ok := a.Templates[common.LogicTmpl]; ok {
+		for _, table := range a.Tables {
+			if err = GenCodeByTemplate(tmpl, table, filepath.Join(a.Root, "logic", table.Name+".go")); err != nil {
+				return
+			}
+		}
+	}
+	return
 
 }
 
-func (a *TemplateAdapter) GenLogic() {
-
+func (a *TemplateAdapter) GenModel() (err error) {
+	if tmpl, ok := a.Templates[common.ModelTmpl]; ok {
+		for _, table := range a.Tables {
+			if err = GenCodeByTemplate(tmpl, table, filepath.Join(a.Root, "model", table.Name+".go")); err != nil {
+				return
+			}
+		}
+	}
+	return
 }
 
-func (a *TemplateAdapter) GenModel() {
-
+func (a *TemplateAdapter) GenDao() (err error) {
+	if tmpl, ok := a.Templates[common.DaoTmpl]; ok {
+		for _, table := range a.Tables {
+			if err = GenCodeByTemplate(tmpl, table, filepath.Join(a.Root, "dao", table.Name+".go")); err != nil {
+				return
+			}
+		}
+	}
+	return
 }
 
-func (a *TemplateAdapter) GenDao() {
-
+func (a *TemplateAdapter) GenConfig() (err error) {
+	if tmpl, ok := a.Templates[common.ConfigTmpl]; ok {
+		if err = GenCodeByTemplate(tmpl, nil, filepath.Join(a.Root, "conf", "conf.yaml")); err != nil {
+			return
+		}
+	}
+	return
 }

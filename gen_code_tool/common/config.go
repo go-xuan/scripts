@@ -1,6 +1,7 @@
 package common
 
 import (
+	"path/filepath"
 	"strings"
 
 	"gen_code_tool/adapter"
@@ -14,7 +15,7 @@ type Config struct {
 	App      string          `json:"app" json:"app" default:"demo"`             // 应用名
 	Frame    string          `json:"frame" yaml:"frame" default:"go-quanx"`     // 代码框架（go-quanx/go-frame/spring-boot）
 	Adapter  string          `json:"adapter" yaml:"adapter" default:"template"` // 代码生成适配器（replace/template）
-	Root     string          `json:"root" yaml:"root" default:"./"`             // 代码生成跟路径
+	Output   string          `json:"output" yaml:"output" default:"./"`         // 输出路径
 	Tables   string          `json:"tables" yaml:"tables"`                      // 生成代码代码的表名（为空则获取全表）
 	Database *gormx.Database `json:"db" yaml:"db"`                              // 应用数据库
 }
@@ -26,23 +27,26 @@ type Generate struct {
 	Tables   string `json:"tables" yaml:"tables"`                  // 生成代码代码的表名（为空则获取全表）
 }
 
+// 生成适配器
 func (c *Config) NewAdapter() adapter.Adapter {
 	switch c.Adapter {
 	case "replace":
-		return adapter.NewReplaceAdapter(c, c.Frame, c.Tmpls())
+		return adapter.NewReplaceAdapter(c, c.Frame, c.TemplateFileNames())
 	default:
-		return adapter.NewTemplateAdapter(c, c.Frame, c.Tmpls())
+		return adapter.NewTemplateAdapter(c, c.Frame, c.TemplateFileNames())
 	}
 }
 
-func (c *Config) Tmpls() []string {
+// 构建框架所需的模板文件
+func (c *Config) TemplateFileNames() []string {
 	switch c.Frame {
 	case "go-frame":
-		return []string{Common, Controller, Logic, Dao, Model, ModelDo, ModelEntity, Router, Cmd}
+		return []string{ConstsTmpl, ConfigTmpl, ControllerTmpl, LogicTmpl, DaoTmpl, ModelTmpl, ModelDoTmpl, ModelEntityTmpl, RouterTmpl, CmdTmpl}
 	case "spring-boot":
-		return []string{Common, Controller, Logic, Dao, Model, ModelDo, ModelEntity, Router, Cmd}
+		return []string{ConstsTmpl, ConfigTmpl, ControllerTmpl, LogicTmpl, DaoTmpl, ModelTmpl, ModelDoTmpl, ModelEntityTmpl, RouterTmpl, CmdTmpl}
 	default:
-		return []string{Common, Controller, Logic, Dao, Model, ModelEntity, Router}
+		// go-quanx
+		return []string{ConstsTmpl, ConfigTmpl, ControllerTmpl, LogicTmpl, DaoTmpl, ModelTmpl, ModelEntityTmpl, RouterTmpl}
 	}
 }
 
@@ -52,4 +56,12 @@ func (c *Config) GetTableNames() []string {
 		tables = append(tables, strings.Split(c.Tables, ",")...)
 	}
 	return tables
+}
+
+func (c *Config) Root() string {
+	if strings.HasSuffix(c.Output, c.App) {
+		return c.Output
+	} else {
+		return filepath.Join(c.Output, c.App)
+	}
 }

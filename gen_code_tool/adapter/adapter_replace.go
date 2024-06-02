@@ -1,6 +1,7 @@
 package adapter
 
 import (
+	"embed"
 	"gen_code_tool/common"
 	"gen_code_tool/db"
 )
@@ -11,11 +12,14 @@ type ReplaceAdapter struct {
 	Tables []*db.Table // 表结构
 }
 
-func NewReplaceAdapter(conf *common.Config, frame string, tmpls []string) *ReplaceAdapter {
-	if len(tmpls) > 0 {
-		var adapter = &ReplaceAdapter{App: conf.App, Root: conf.Root}
+//go:embed resource/replace/*
+var ReplaceFs embed.FS
+
+func NewReplaceAdapter(conf *common.Config, frame string, files []string) *ReplaceAdapter {
+	if len(files) > 0 {
+		var adapter = &ReplaceAdapter{App: conf.App, Root: conf.Root()}
 		var err error
-		if adapter.Tables, err = db.GetTables(conf.Database, conf.GetTableNames()); err != nil {
+		if adapter.Tables, err = db.QueryTables(conf.Database, conf.GetTableNames()); err != nil {
 			panic(err)
 		}
 		return adapter
@@ -23,22 +27,27 @@ func NewReplaceAdapter(conf *common.Config, frame string, tmpls []string) *Repla
 	return nil
 }
 
-func (a *ReplaceAdapter) GenCommon() {
+func (a *ReplaceAdapter) GenCommon() error {
 
+	return nil
 }
 
-func (a *ReplaceAdapter) GenController() {
-
+func (a *ReplaceAdapter) GenController() error {
+	return nil
 }
 
-func (a *ReplaceAdapter) GenLogic() {
-
+func (a *ReplaceAdapter) GenLogic() error {
+	return nil
 }
 
-func (a *ReplaceAdapter) GenModel() {
-
+func (a *ReplaceAdapter) GenModel() error {
+	return nil
 }
 
-func (a *ReplaceAdapter) GenDao() {
+func (a *ReplaceAdapter) GenDao() error {
+	return nil
+}
 
+func (a *ReplaceAdapter) GenConfig() error {
+	return nil
 }

@@ -7,9 +7,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func GetTables(database *gormx.Database, tableNames []string) (tables []*Table, err error) {
+func QueryTables(database *gormx.Database, tableNames []string) (tables []*Table, err error) {
 	var fields []*Field
-	if fields, err = GetFields(database, tableNames); err != nil {
+	if fields, err = QueryFields(database, tableNames); err != nil {
 		return
 	}
 	if len(fields) > 0 {
@@ -37,7 +37,7 @@ func GetTables(database *gormx.Database, tableNames []string) (tables []*Table, 
 	return
 }
 
-func GetFields(database *gormx.Database, tableNames []string) (fields []*Field, err error) {
+func QueryFields(database *gormx.Database, tableNames []string) (fields []*Field, err error) {
 	switch database.Type {
 	case gormx.Mysql:
 		if fields, err = mysqlTableFields(database.Source, database.Database, tableNames...); err != nil {
