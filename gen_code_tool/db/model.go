@@ -45,7 +45,7 @@ func (t *Table) JavaEntity() string {
 		sb.WriteString("\", name = \"")
 		sb.WriteString(lowerCamel)
 		sb.WriteString("\")\n\tprivate ")
-		sb.WriteString(common.DB2Java(field.Type))
+		sb.WriteString(common.DB2JavaType(field.Type))
 		sb.WriteString(" ")
 		sb.WriteString(lowerCamel)
 		sb.WriteString(";")
@@ -63,7 +63,7 @@ func (t *Table) GormStruct() string {
 		sb.WriteString("\t")
 		sb.WriteString(uc)
 		sb.WriteString(" ")
-		sb.WriteString(common.DB2Go(field.Type))
+		sb.WriteString(common.DB2GoType(field.Type))
 		sb.WriteString(" `json:\"")
 		sb.WriteString(lc)
 		sb.WriteString("\" gorm:\"type:")
@@ -73,7 +73,7 @@ func (t *Table) GormStruct() string {
 			sb.WriteString(strconv.Itoa(field.Precision))
 			sb.WriteString(")")
 		} else {
-			sb.WriteString(common.DB2Gorm(field.Type))
+			sb.WriteString(common.DB2GormType(field.Type))
 		}
 		if !field.Nullable {
 			sb.WriteString("; not null")
@@ -101,7 +101,7 @@ func (t *Table) GfModelDo() string {
 		sb.WriteString("\t")
 		sb.WriteString(uc)
 		sb.WriteString(" ")
-		sb.WriteString(common.DB2Go(field.Type))
+		sb.WriteString(common.DB2GoType(field.Type))
 		sb.WriteString(" `json:\"")
 		sb.WriteString(lc)
 		sb.WriteString("\" gorm:\"type:")
@@ -111,7 +111,7 @@ func (t *Table) GfModelDo() string {
 			sb.WriteString(strconv.Itoa(field.Precision))
 			sb.WriteString(")")
 		} else {
-			sb.WriteString(common.DB2Gorm(field.Type))
+			sb.WriteString(common.DB2GormType(field.Type))
 		}
 		if !field.Nullable {
 			sb.WriteString("; not null")
@@ -139,7 +139,7 @@ func (t *Table) GfModelEntity() string {
 		sb.WriteString("\t")
 		sb.WriteString(uc)
 		sb.WriteString(" ")
-		sb.WriteString(common.DB2Go(field.Type))
+		sb.WriteString(common.DB2GoType(field.Type))
 		sb.WriteString(" `json:\"")
 		sb.WriteString(lc)
 		sb.WriteString("\" gorm:\"type:")
@@ -149,7 +149,7 @@ func (t *Table) GfModelEntity() string {
 			sb.WriteString(strconv.Itoa(field.Precision))
 			sb.WriteString(")")
 		} else {
-			sb.WriteString(common.DB2Gorm(field.Type))
+			sb.WriteString(common.DB2GormType(field.Type))
 		}
 		if !field.Nullable {
 			sb.WriteString("; not null")

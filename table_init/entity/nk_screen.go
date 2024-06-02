@@ -10,18 +10,19 @@ import (
 )
 
 type ScreenIndicesStats struct {
-	Id         int64     `json:"id" gorm:"type:bigint; comment:主键ID;"`
-	Class      string    `json:"class" gorm:"type:varchar(100); not null; comment:指标分类;"`
-	Name       string    `json:"name" gorm:"type:varchar(100); not null; comment:指标名称;"`
-	Key        string    `json:"key" gorm:"type:varchar(100); not null; comment:指标KEY;"`
-	Value      float64   `json:"value" gorm:"type:float4; comment:指标值;"`
-	Unit       string    `json:"unit" gorm:"type:varchar(20); comment:指标单位;"`
-	Index      int       `json:"index" gorm:"type:smallint; not null; comment:排序下标;"`
-	UpdateTime time.Time `json:"updateTime" gorm:"type:timestamp; default:now(); comment:更新时间;"`
+	Id          int64     `json:"id" gorm:"type:bigint; comment:主键ID;"`
+	Class       string    `json:"class" gorm:"type:varchar(100); not null; comment:指标分类;"`
+	Name        string    `json:"name" gorm:"type:varchar(100); not null; comment:指标名称;"`
+	Key         string    `json:"key" gorm:"type:varchar(100); not null; comment:指标KEY;"`
+	Value       float64   `json:"value" gorm:"type:float4; comment:指标值;"`
+	Unit        string    `json:"unit" gorm:"type:varchar(20); comment:指标单位;"`
+	Index       int       `json:"index" gorm:"type:smallint; not null; comment:排序下标;"`
+	UpdateTime  time.Time `json:"updateTime" gorm:"type:timestamp; default:now(); comment:更新时间;"`
+	Desensitize bool      `json:"desensitize" gorm:"type:bool; default:false; comment:是否脱敏;"`
 }
 
 func (s ScreenIndicesStats) TableName() string {
-	return "screen_indices_stats"
+	return "nkdx.screen_indices_stats"
 }
 
 func (s ScreenIndicesStats) TableComment() string {
@@ -152,7 +153,7 @@ type EnrollStudentsStats struct {
 }
 
 func (e EnrollStudentsStats) TableName() string {
-	return "enroll_students_stats"
+	return "nkdx.enroll_students_stats"
 }
 
 func (e EnrollStudentsStats) TableComment() string {
@@ -187,7 +188,7 @@ type SubjectConstruction struct {
 }
 
 func (e SubjectConstruction) TableName() string {
-	return "subject_construction"
+	return "nkdx.subject_construction"
 }
 
 func (e SubjectConstruction) TableComment() string {

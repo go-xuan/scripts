@@ -1,31 +1,51 @@
 package common
 
+const (
+	Common      = "common.tmpl"
+	Controller  = "controller.tmpl"
+	Logic       = "logic.tmpl"
+	Dao         = "dao.tmpl"
+	Model       = "model.tmpl"
+	ModelDo     = "model_do.tmpl"
+	ModelEntity = "model_entity.tmpl"
+	Router      = "router.tmpl"
+	Cmd         = "cmd.tmpl"
+)
+
+var GoQuanTmpls = []string{Common, Controller, Logic, Dao, Model, ModelEntity, Router}
+var GoFrameCodes = []string{Common, Controller, Logic, Dao, Model, ModelDo, ModelEntity, Router, Cmd}
+var SpringBootCodes = []string{Common, Controller, Logic, Dao, Model, ModelDo, ModelEntity, Router, Cmd}
+
 // 随机数生成器-数据类型
 const (
-	String         = "string"
-	Int            = "int"
-	Float64        = "float64"
-	Time           = "time.Time"
-	Date           = "date"
-	Varchar        = "varchar"
-	Char           = "char"
-	Text           = "text"
-	Tinyint        = "tinyint"
-	Smallint       = "smallint"
-	Mediumint      = "mediumint"
-	Bigint         = "bigint"
-	Int2           = "int2"
-	Int4           = "int4"
-	Int8           = "int8"
-	Int64          = "int64"
-	Float4         = "float4"
-	Numeric        = "numeric" // 数字
-	Numeric6       = "numeric(10,6)"
-	Numeric2       = "numeric(10,2)"
-	Decimal        = "decimal"
-	Timestamp      = "timestamp"
-	Datetime       = "datetime"
-	Bool           = "bool"
+	// go
+	String  = "string"
+	Int     = "int"
+	Int64   = "int64"
+	Float64 = "float64"
+	Bool    = "bool"
+	Time    = "time.Time"
+
+	// database
+	Date      = "date"
+	Varchar   = "varchar"
+	Char      = "char"
+	Text      = "text"
+	Int2      = "int2"
+	Int4      = "int4"
+	Int8      = "int8"
+	Tinyint   = "tinyint"
+	Smallint  = "smallint"
+	Mediumint = "mediumint"
+	Bigint    = "bigint"
+	Float4    = "float4"
+	Numeric   = "numeric" // 数字
+	Numeric6  = "numeric(10,6)"
+	Numeric2  = "numeric(10,2)"
+	Decimal   = "decimal"
+	Timestamp = "timestamp"
+	Datetime  = "datetime"
+	// java
 	JavaString     = "String"
 	JavaInteger    = "Integer"
 	JavaInt        = "int"
@@ -51,7 +71,7 @@ func IsBaseField(t string) bool {
 }
 
 // DB-java类型映射
-func DB2Java(t string) string {
+func DB2JavaType(t string) string {
 	switch t {
 	case Char, Varchar, Text:
 		return JavaString
@@ -75,7 +95,7 @@ func DB2Java(t string) string {
 }
 
 // DB-Go类型映射
-func DB2Go(t string) string {
+func DB2GoType(t string) string {
 	switch t {
 	case Char, Varchar, Text:
 		return String
@@ -95,7 +115,7 @@ func DB2Go(t string) string {
 }
 
 // DB-Gorm类型映射
-func DB2Gorm(t string) string {
+func DB2GormType(t string) string {
 	switch t {
 	case Char:
 		return Char

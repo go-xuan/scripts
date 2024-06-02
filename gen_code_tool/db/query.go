@@ -3,12 +3,56 @@ package db
 import (
 	"strings"
 
-	"github.com/go-xuan/quanx/db/gormx"
+	"github.com/go-xuan/quanx/server/gormx"
 	log "github.com/sirupsen/logrus"
 )
 
+func GetTables(database *gormx.Database, tableNames []string) (tables []*Table, err error) {
+	var fields []*Field
+	if fields, err = GetFields(database, tableNames); err != nil {
+		return
+	}
+	if len(fields) > 0 {
+		var tableMap = make(map[string]*Table)
+		for _, field := range fields {
+			if _, ok := tableMap[field.TableName]; ok {
+				tableMap[field.TableName].Fields = append(tableMap[field.TableName].Fields, field)
+				if tableMap[field.TableName].FieldLen < len(field.Name) {
+					tableMap[field.TableName].FieldLen = len(field.Name)
+				}
+			} else {
+				tableMap[field.TableName] = &Table{
+					Name:     field.TableName,
+					Schema:   field.Schema,
+					Comment:  field.TableComment,
+					FieldLen: len(field.Name),
+					Fields:   []*Field{field},
+				}
+			}
+		}
+		for _, table := range tableMap {
+			tables = append(tables, table)
+		}
+	}
+	return
+}
+
+func GetFields(database *gormx.Database, tableNames []string) (fields []*Field, err error) {
+	switch database.Type {
+	case gormx.Mysql:
+		if fields, err = mysqlTableFields(database.Source, database.Database, tableNames...); err != nil {
+			return
+		}
+	case gormx.Postgres:
+		if fields, err = pgsqlTableFields(database.Source, database.Database, database.Schema, tableNames...); err != nil {
+			return
+		}
+	}
+	return
+}
+
 // 查询表字段列表
-func MysqlTableFieldList(source, database string, table ...string) (fields []*Field, err error) {
+func mysqlTableFields(source, database string, table ...string) (fields []*Field, err error) {
 	sql := strings.Builder{}
 	sql.WriteString(`
 select t1.column_name as "name",
@@ -42,7 +86,7 @@ select t1.column_name as "name",
 }
 
 // 查询表字段列表
-func PgTableFieldList(source, database, schema string, table ...string) (fields []*Field, err error) {
+func pgsqlTableFields(source, database, schema string, table ...string) (fields []*Field, err error) {
 	sql := strings.Builder{}
 	sql.WriteString(`
 select t1.column_name as name,

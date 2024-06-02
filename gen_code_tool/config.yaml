@@ -1,22 +1,12 @@
-tmpl:
-  source: db
-  # 当 tmpl.source=db 时生效
-  db:
-    enable: true
-    type: postgres
-    host: localhost
-    port: 5432
-    username: postgres
-    password: postgres
-    database: screen
-    debug: true
-  # 当 tmpl.source=file 时生效
-  file:
-gen:
-  app:
-  language:
-  code:
-  db:
-  tables:
-  modules:
-  output:
+app:
+frame:
+root:
+tables:
+db:
+  type: postgres
+  host: localhost
+  port: 5432
+  username: postgres
+  password: postgres
+  database: screen
+  debug: true

@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/go-xuan/quanx/os/filex"
 
-	"github.com/go-xuan/quanx/os/file/filex"
 	"github.com/go-xuan/quanx/utils/sqlx"
 )
 
