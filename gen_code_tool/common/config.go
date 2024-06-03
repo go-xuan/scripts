@@ -31,22 +31,9 @@ type Generate struct {
 func (c *Config) NewAdapter() adapter.Adapter {
 	switch c.Adapter {
 	case "replace":
-		return adapter.NewReplaceAdapter(c, c.Frame, c.TemplateFileNames())
+		return adapter.NewReplaceAdapter(c, c.Frame)
 	default:
-		return adapter.NewTemplateAdapter(c, c.Frame, c.TemplateFileNames())
-	}
-}
-
-// 构建框架所需的模板文件
-func (c *Config) TemplateFileNames() []string {
-	switch c.Frame {
-	case "go-frame":
-		return []string{ConstsTmpl, ConfigTmpl, ControllerTmpl, LogicTmpl, DaoTmpl, ModelTmpl, ModelDoTmpl, ModelEntityTmpl, RouterTmpl, CmdTmpl}
-	case "spring-boot":
-		return []string{ConstsTmpl, ConfigTmpl, ControllerTmpl, LogicTmpl, DaoTmpl, ModelTmpl, ModelDoTmpl, ModelEntityTmpl, RouterTmpl, CmdTmpl}
-	default:
-		// go-quanx
-		return []string{ConstsTmpl, ConfigTmpl, ControllerTmpl, LogicTmpl, DaoTmpl, ModelTmpl, ModelEntityTmpl, RouterTmpl}
+		return adapter.NewTemplateAdapter(c, c.Frame)
 	}
 }
 

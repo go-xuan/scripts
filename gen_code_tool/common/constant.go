@@ -1,19 +1,9 @@
 package common
 
-// tmplName
-type TmplName string
-
 const (
-	ConstsTmpl      = "consts.tmpl"
-	ConfigTmpl      = "config.tmpl"
-	ControllerTmpl  = "controller.tmpl"
-	LogicTmpl       = "logic.tmpl"
-	DaoTmpl         = "dao.tmpl"
-	ModelTmpl       = "model.tmpl"
-	ModelDoTmpl     = "model_do.tmpl"
-	ModelEntityTmpl = "model_entity.tmpl"
-	RouterTmpl      = "router.tmpl"
-	CmdTmpl         = "cmd.tmpl"
+	GoQuanx    = "go-quanx"
+	GoFrame    = "go-frame"
+	SpringBoot = "spring boot"
 )
 
 // 随机数生成器-数据类型

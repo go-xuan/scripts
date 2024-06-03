@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"gen_code_tool/adapter"
 	"github.com/go-xuan/quanx/utils/marshalx"
 
 	"gen_code_tool/common"
@@ -30,7 +29,7 @@ func main() {
 	}
 
 	// 代码生成
-	if err = adapter.GenCodes(common.Conf.NewAdapter()); err != nil {
+	if err = common.Conf.NewAdapter().GenCode(); err != nil {
 		panic(err)
 	}
 }
