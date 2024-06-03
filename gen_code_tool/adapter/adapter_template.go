@@ -3,19 +3,21 @@ package adapter
 import (
 	"gen_code_tool/common"
 	"gen_code_tool/db"
+	"github.com/go-xuan/quanx/server/gormx"
 )
 
 type TemplateAdapter struct {
-	App    string         // 应用名
-	Root   string         // 代码生成路径
-	Tables []*db.Table    // 表结构
-	Tmpls  []*common.Tmpl // 模板
+	App    string          // 应用名
+	Root   string          // 代码生成路径
+	DB     *gormx.Database // 应用数据库
+	Tables []*db.Table     // 表结构
+	Tmpls  []*common.Tmpl  // 模板
 }
 
 func NewTemplateAdapter(conf *common.Config, frame string) *TemplateAdapter {
-	var adapter = &TemplateAdapter{App: conf.App, Root: conf.Root()}
+	var adapter = &TemplateAdapter{App: conf.App, Root: conf.Root(), DB: conf.DB}
 	var err error
-	if adapter.Tables, err = db.QueryTables(conf.Database, conf.GetTableNames()); err != nil {
+	if adapter.Tables, err = db.QueryTables(conf.DB, conf.GetTableNames()); err != nil {
 		panic(err)
 	}
 	switch frame {

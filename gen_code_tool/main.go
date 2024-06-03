@@ -26,9 +26,9 @@ func main() {
 	common.TemplateFs = TemplateFs
 
 	// 初始化应用数据库连接
-	if common.Conf.Database != nil {
-		common.Conf.Database.Enable = true
-		if err = common.Conf.Database.Run(); err != nil {
+	if common.Conf.DB != nil {
+		common.Conf.DB.Enable = true
+		if err = common.Conf.DB.Run(); err != nil {
 			panic(err)
 		}
 	} else {

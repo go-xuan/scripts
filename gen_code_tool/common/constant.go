@@ -126,15 +126,11 @@ func DB2GormType(t string) string {
 		return Tinyint
 	case Smallint, Int2:
 		return Smallint
-	case Mediumint, Int4:
-		return Mediumint
+	case Mediumint, Int4, Int:
+		return Int
 	case Bigint, Int8:
 		return Bigint
-	case Int:
-		return Int
-	case Float4:
-		return Numeric6
-	case Numeric:
+	case Float4, Numeric:
 		return Numeric2
 	case Timestamp, Datetime:
 		return Timestamp

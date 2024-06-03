@@ -72,6 +72,7 @@ func GoQuanxTemplates() []*Tmpl {
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "go.mod.tmpl"), DataType: AdapterData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "common", "consts.go.tmpl"), DataType: NoData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "conf", "config.yaml.tmpl"), DataType: AdapterData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "conf", "database.yaml.tmpl"), DataType: AdapterData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "router", "router.go.tmpl"), DataType: AdapterData, FuncMap: funcMap})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "controller", "{{table}}.go.tmpl"), DataType: TableData, FuncMap: funcMap})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "logic", "{{table}}.go.tmpl"), DataType: TableData, FuncMap: funcMap})
