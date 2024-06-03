@@ -29,7 +29,11 @@ func main() {
 	}
 
 	// 代码生成
-	if err = common.Conf.NewAdapter().GenCode(); err != nil {
-		panic(err)
+	if adapter := common.Conf.NewAdapter(); adapter != nil {
+		if err = adapter.GenCode(); err != nil {
+			panic(err)
+		}
+	} else {
+		panic("please check the [adapter] in the config.yaml")
 	}
 }

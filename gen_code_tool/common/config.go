@@ -30,10 +30,12 @@ type Generate struct {
 // 生成适配器
 func (c *Config) NewAdapter() adapter.Adapter {
 	switch c.Adapter {
-	case "replace":
+	case Replace:
 		return adapter.NewReplaceAdapter(c, c.Frame)
-	default:
+	case Template:
 		return adapter.NewTemplateAdapter(c, c.Frame)
+	default:
+		return nil
 	}
 }
 

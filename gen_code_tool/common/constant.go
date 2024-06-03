@@ -3,7 +3,19 @@ package common
 const (
 	GoQuanx    = "go-quanx"
 	GoFrame    = "go-frame"
-	SpringBoot = "spring boot"
+	SpringBoot = "spring-boot"
+)
+
+const (
+	Replace  = "replace"
+	Template = "template"
+)
+
+// NeedTable
+const (
+	NoTable  = "no"
+	OneTable = "one"
+	AllTable = "all"
 )
 
 // 随机数生成器-数据类型
