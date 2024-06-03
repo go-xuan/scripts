@@ -4,12 +4,12 @@ import (
 	"bufio"
 	"bytes"
 	"embed"
-	"github.com/go-xuan/quanx/os/filex"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
 
+	"github.com/go-xuan/quanx/os/filex"
 	"github.com/go-xuan/quanx/types/stringx"
 )
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+
 	"github.com/go-xuan/quanx/utils/marshalx"
 
 	"gen_code_tool/common"
