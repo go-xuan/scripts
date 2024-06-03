@@ -32,8 +32,21 @@ func NewTemplateAdapter(conf *common.Config, frame string) *TemplateAdapter {
 func (a *TemplateAdapter) GenCode() (err error) {
 	if len(a.Tmpls) > 0 {
 		for _, tmpl := range a.Tmpls {
-			if err = tmpl.GenCode(a.Tables); err != nil {
-				return
+			switch tmpl.DataType {
+			case common.NoData:
+				if err = tmpl.WriteCodeToFile(a.Root, nil); err != nil {
+					return
+				}
+			case common.TableData:
+				for _, table := range a.Tables {
+					if err = tmpl.WriteCodeToFile(a.Root, table, table.Name); err != nil {
+						return
+					}
+				}
+			case common.AdapterData:
+				if err = tmpl.WriteCodeToFile(a.Root, a); err != nil {
+					return
+				}
 			}
 		}
 	}

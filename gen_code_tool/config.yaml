@@ -1,6 +1,6 @@
-app:
-frame:
-root:
+app: quanchao_test_gen
+frame: go-quanx
+output: D:\Code\Go\src\github.com\go-xuan
 tables:
 db:
   type: postgres

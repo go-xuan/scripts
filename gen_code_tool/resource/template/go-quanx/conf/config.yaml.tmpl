@@ -1,0 +1,14 @@
+# 当前系统配置
+server:
+  name: {{.App}}
+  port: 8080
+  prefix: /{{.App}}
+  debug: true
+
+## nacos配置
+nacos:
+  address: localhost:8848
+  username: nacos
+  password: nacos
+  nameSpace: localhost
+  mode: 2
