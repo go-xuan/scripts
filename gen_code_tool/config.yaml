@@ -1,4 +1,5 @@
 app: quanchao_test_gen
+adapter: template
 frame: go-quanx
 output: D:\Code\Go\src\github.com\go-xuan
 tables:
@@ -9,4 +10,5 @@ db:
   username: postgres
   password: postgres
   database: screen
+  schema: nkdx
   debug: true

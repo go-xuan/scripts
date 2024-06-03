@@ -4,8 +4,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"gen_code_tool/adapter"
-
 	"github.com/go-xuan/quanx/server/gormx"
 )
 
@@ -25,18 +23,6 @@ type Generate struct {
 	Language string `json:"language" yaml:"language" default:"go"` // 生成代码语言
 	Output   string `json:"output" yaml:"output" default:"./"`     // 代码生成路径
 	Tables   string `json:"tables" yaml:"tables"`                  // 生成代码代码的表名（为空则获取全表）
-}
-
-// 生成适配器
-func (c *Config) NewAdapter() adapter.Adapter {
-	switch c.Adapter {
-	case Replace:
-		return adapter.NewReplaceAdapter(c, c.Frame)
-	case Template:
-		return adapter.NewTemplateAdapter(c, c.Frame)
-	default:
-		return nil
-	}
 }
 
 func (c *Config) GetTableNames() []string {

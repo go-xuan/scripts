@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"embed"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"text/template"
@@ -13,7 +14,6 @@ import (
 	"github.com/go-xuan/quanx/types/stringx"
 )
 
-//go:embed resource/template/*
 var TemplateFs embed.FS
 
 type Tmpls []*Tmpl
@@ -26,19 +26,18 @@ type Tmpl struct {
 }
 
 func (t *Tmpl) Template() *template.Template {
+	var content, _ = TemplateFs.ReadFile(t.Path)
 	if t.FuncMap != nil {
-		return template.Must(template.New(t.Path).Funcs(t.FuncMap).ParseFS(TemplateFs, t.Path))
+		return template.Must(template.New(t.Path).Funcs(t.FuncMap).Parse(string(content)))
 	} else {
-		return template.Must(template.New(t.Path).ParseFS(TemplateFs, t.Path))
+		return template.Must(template.New(t.Path).Parse(string(content)))
 	}
 }
 
 func (t *Tmpl) OutputPath(table ...string) string {
-	path := strings.TrimSuffix(t.Path, ".tmpl")
-	split := strings.Split(path, string(os.PathSeparator))
-	if split[0] == t.Frame {
-		split = split[1:]
-	}
+	outputPath := strings.TrimSuffix(t.Path, ".tmpl")
+	split := strings.Split(outputPath, "/")
+	split = split[2:]
 	if len(table) > 0 {
 		i := len(split) - 1
 		split[i] = strings.Replace(split[i], "{{table}}", table[0], -1)
@@ -47,16 +46,16 @@ func (t *Tmpl) OutputPath(table ...string) string {
 }
 
 func (t *Tmpl) WriteCodeToFile(root string, data any, table ...string) (err error) {
-	path := t.OutputPath(table...)
-	path = filepath.Join(root, path)
-	if filex.Exists(path) && ReadFirstLine(path) != OverwriteTag {
+	outputPath := t.OutputPath(table...)
+	outputPath = filepath.Join(root, outputPath)
+	if filex.Exists(outputPath) && ReadFirstLine(outputPath) != OverwriteTag {
 		return
 	}
 	var buf = &bytes.Buffer{}
 	if err = t.Template().Execute(buf, data); err != nil {
 		return
 	}
-	if err = filex.WriteFile(path, buf.String()); err != nil {
+	if err = filex.WriteFile(outputPath, buf.String()); err != nil {
 		return
 	}
 	return
@@ -69,17 +68,17 @@ func GoQuanxTemplates() []*Tmpl {
 		"uc": stringx.ToUpperCamel,
 		"lc": stringx.ToLowerCamel,
 	}
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "main.go.tmpl"), DataType: AdapterData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "go.mod.tmpl"), DataType: AdapterData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "common", "consts.go.tmpl"), DataType: NoData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "conf", "config.yaml.tmpl"), DataType: NoData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "internal", "router", "router.go.tmpl"), DataType: AdapterData, FuncMap: funcMap})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "internal", "controller", "{{table}}.go.tmpl"), DataType: TableData, FuncMap: funcMap})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "internal", "logic", "{{table}}.go.tmpl"), DataType: TableData, FuncMap: funcMap})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "internal", "dao", "{{table}}.go.tmpl"), DataType: TableData, FuncMap: funcMap})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "internal", "model", "{{table}}.go.tmpl"), DataType: TableData,
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "main.go.tmpl"), DataType: AdapterData, FuncMap: funcMap})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "go.mod.tmpl"), DataType: AdapterData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "common", "consts.go.tmpl"), DataType: NoData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "conf", "config.yaml.tmpl"), DataType: AdapterData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "router", "router.go.tmpl"), DataType: AdapterData, FuncMap: funcMap})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "controller", "{{table}}.go.tmpl"), DataType: TableData, FuncMap: funcMap})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "logic", "{{table}}.go.tmpl"), DataType: TableData, FuncMap: funcMap})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "dao", "{{table}}.go.tmpl"), DataType: TableData, FuncMap: funcMap})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "model", "{{table}}.go.tmpl"), DataType: TableData,
 		FuncMap: template.FuncMap{"uc": stringx.ToUpperCamel, "lc": stringx.ToLowerCamel, "go_type": DB2GoType}})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: filepath.Join(frame, "internal", "model", "entity", "{{table}}.go.tmpl"), DataType: TableData,
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: path.Join("template", frame, "internal", "model", "entity", "{{table}}.go.tmpl"), DataType: TableData,
 		FuncMap: template.FuncMap{"uc": stringx.ToUpperCamel, "lc": stringx.ToLowerCamel, "go_type": DB2GoType, "gorm_type": DB2GormType}})
 	return tmpls
 }

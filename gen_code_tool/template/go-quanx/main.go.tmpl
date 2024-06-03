@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/go-xuan/quanx/app"
-	"user/internal/model/entity"
 
+	"{{.App}}/internal/model/entity"
 	"{{.App}}/internal/router"
 )
 
@@ -11,8 +11,8 @@ func main() {
 	var engine = app.DefaultEngine()
 	engine.AddGinRouter(router.BindApiRouter)
 	engine.AddTable(
-		{{- range $table := .Tables}}
-		&entity.{{uc $table.Name}}{},
+		{{- range $table := .Tables }}
+		&entity.{{uc $table.Name }}{},
     	{{- end }}
 	)
 	// 初始化路由

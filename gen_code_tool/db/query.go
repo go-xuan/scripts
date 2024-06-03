@@ -7,9 +7,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func QueryTables(database *gormx.Database, tableNames []string) (tables []*Table, err error) {
+func QueryTables(db *gormx.Database, tableNames []string) (tables []*Table, err error) {
 	var fields []*Field
-	if fields, err = QueryFields(database, tableNames); err != nil {
+	if fields, err = QueryFields(db, tableNames); err != nil {
 		return
 	}
 	if len(fields) > 0 {
@@ -37,14 +37,14 @@ func QueryTables(database *gormx.Database, tableNames []string) (tables []*Table
 	return
 }
 
-func QueryFields(database *gormx.Database, tableNames []string) (fields []*Field, err error) {
-	switch database.Type {
+func QueryFields(db *gormx.Database, tableNames []string) (fields []*Field, err error) {
+	switch db.Type {
 	case gormx.Mysql:
-		if fields, err = mysqlTableFields(database.Source, database.Database, tableNames...); err != nil {
+		if fields, err = mysqlTableFields(db.Source, db.Database, tableNames...); err != nil {
 			return
 		}
 	case gormx.Postgres:
-		if fields, err = pgsqlTableFields(database.Source, database.Database, database.Schema, tableNames...); err != nil {
+		if fields, err = pgsqlTableFields(db.Source, db.Database, db.Schema, tableNames...); err != nil {
 			return
 		}
 	}
@@ -95,7 +95,7 @@ select t1.column_name as name,
        t1.table_catalog as database,
        t1.udt_name as type,
        t1.column_default as default,
-       obj_description(t3.oid) as tableComment,
+       obj_description(t3.oid) as table_comment,
        t5.description as comment,
        case when t1.numeric_precision is null then t1.character_maximum_length else t1.numeric_precision end as precision,
        t1.numeric_scale as scale,

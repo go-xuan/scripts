@@ -1,12 +1,17 @@
 package main
 
 import (
+	"embed"
 	"flag"
 
 	"github.com/go-xuan/quanx/utils/marshalx"
 
+	"gen_code_tool/adapter"
 	"gen_code_tool/common"
 )
+
+//go:embed template/*
+var TemplateFs embed.FS
 
 func main() {
 	var configIn = flag.String("config", "config.yaml", "输入配置文件，例如：-config=config.yaml")
@@ -18,6 +23,7 @@ func main() {
 	if err = marshalx.UnmarshalFromFile(*configIn, common.Conf); err != nil {
 		panic(err)
 	}
+	common.TemplateFs = TemplateFs
 
 	// 初始化应用数据库连接
 	if common.Conf.Database != nil {
@@ -30,8 +36,8 @@ func main() {
 	}
 
 	// 代码生成
-	if adapter := common.Conf.NewAdapter(); adapter != nil {
-		if err = adapter.GenCode(); err != nil {
+	if newAdapter := adapter.NewAdapter(common.Conf); newAdapter != nil {
+		if err = newAdapter.GenCode(); err != nil {
 			panic(err)
 		}
 	} else {
