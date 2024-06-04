@@ -1,0 +1,11 @@
+
+# CLI tool, only in development environment.
+# https://goframe.org/pages/viewpage.action?pageId=3673173
+gfcli:
+  gen:
+    dao:
+      - link: "pgsql:postgres:postgres@tcp(localhost:5432)/screen"
+        path: "./internal"
+        tables: "screen_indices_stats,enroll_students_stats,subject_construction"
+        descriptionTag:  true
+        noModelComment:  true

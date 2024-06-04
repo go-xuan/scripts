@@ -1,0 +1,25 @@
+// =================================================================================
+// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
+// =================================================================================
+
+package do
+
+import (
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+)
+
+// {{uc .Name}} is the golang structure of table {{.Name}} for DAO operations like Where/Data.
+type {{uc .Name}} struct {
+	g.Meta          `orm:"table:{{.Name}}, do:true"`
+	Year            interface{} // 年份
+	Undergraduate   interface{} // 本科生
+	MasterStudent   interface{} // 硕士生
+	DoctoralStudent interface{} // 博士生
+	OverseasStudent interface{} // 留学生
+	UpdateTime      *gtime.Time // 更新时间
+
+	{{- range $field := .Fields }}
+	{{uc $field.Name}} {{go_type $field.Type}} // {{$field.Comment}}
+	{{- end }}
+}

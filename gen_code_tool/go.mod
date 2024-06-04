@@ -5,6 +5,7 @@ go 1.22
 require (
 	github.com/go-xuan/quanx v1.24.604
 	github.com/sirupsen/logrus v1.9.3
+	gorm.io/gorm v1.25.10
 )
 
 require (
@@ -30,5 +31,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.6 // indirect
 	gorm.io/driver/postgres v1.5.7 // indirect
-	gorm.io/gorm v1.25.10 // indirect
 )

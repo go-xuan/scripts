@@ -1,11 +1,14 @@
 package db
 
 import (
+	"gorm.io/gorm"
 	"strings"
 
 	"github.com/go-xuan/quanx/server/gormx"
 	log "github.com/sirupsen/logrus"
 )
+
+var DB *gorm.DB
 
 func QueryTables(db *gormx.Database, tableNames []string) (tables []*Table, err error) {
 	var fields []*Field
@@ -78,7 +81,7 @@ select t1.column_name as "name",
 		sql.WriteString(`')`)
 	}
 	sql.WriteString(` order by t1.table_name, t1.ordinal_position`)
-	if err = gormx.DB(source).Raw(sql.String()).Scan(&fields).Error; err != nil {
+	if err = DB.Raw(sql.String()).Scan(&fields).Error; err != nil {
 		log.Errorf("查询表字段列表 失败：%s\n ", err)
 		return
 	}
@@ -119,7 +122,7 @@ select t1.column_name as name,
 		sql.WriteString(`')`)
 	}
 	sql.WriteString(` order by t1.table_schema, t1.table_name, t1.ordinal_position`)
-	if err = gormx.DB(source).Raw(sql.String()).Scan(&fields).Error; err != nil {
+	if err = DB.Raw(sql.String()).Scan(&fields).Error; err != nil {
 		log.Errorf("查询表字段列表 失败：%s\n ", err)
 		return
 	}
