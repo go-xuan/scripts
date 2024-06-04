@@ -2,10 +2,8 @@ module gen_code_tool
 
 go 1.22
 
-replace github.com/go-xuan/quanx v1.0.0 => ../../quanx
-
 require (
-	github.com/go-xuan/quanx v1.0.0
+	github.com/go-xuan/quanx v1.24.604
 	github.com/sirupsen/logrus v1.9.3
 )
 
