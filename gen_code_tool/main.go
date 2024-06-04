@@ -78,7 +78,7 @@ func (c *Config) Root() string {
 func (c *Config) Generator() *Generator {
 	generator := &Generator{App: config.App, Root: config.Root(), DB: config.DB, Tmpls: config.Tmpls()}
 	// 查询数据表
-	if tables, err := db.QueryTables(config.DB, config.Tables()); err != nil {
+	if tables, err := db.QueryTables(config.DB, config.Tables()); err == nil {
 		generator.Tables = tables
 	}
 	return generator

@@ -39,12 +39,12 @@ func (t *Tmpl) WriteCodeToFile(root string, data any, table ...string) (err erro
 	if len(table) > 0 {
 		file = strings.Replace(file, "{{table}}", table[0], -1)
 	}
-	if path := filepath.Join(root, dir, file); needWrite(path) {
+	if file = filepath.Join(root, dir, file); needWrite(file) {
 		var buf = &bytes.Buffer{}
 		if err = t.Template().Execute(buf, data); err != nil {
 			return
 		}
-		if err = filex.WriteFile(path, buf.String()); err != nil {
+		if err = filex.WriteFile(file, buf.String()); err != nil {
 			return
 		}
 	}
