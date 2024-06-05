@@ -3,21 +3,21 @@ package entity
 
 import "time"
 
-// {{uc .Name}} is the go struct for table {{if eq $.Schema "public"}}{{.Name}}{{else}}{{.Schema}}.{{.Name}}{{end}}.
-type {{uc .Name}} struct {
+// {{uc .Trim}} is the go struct for table {{if eq $.Schema "public"}}{{.Name}}{{else}}{{.Schema}}.{{.Name}}{{end}}.
+type {{uc .Trim}} struct {
 	{{- range $field := .Fields}}
-	{{uc $field.Name}}  {{go_type $field.Type}} `json:"{{lc $field.Name}}" gorm:"type:{{gorm_type $field.Type}};{{if $field.Nullable}}{{else}} not null;{{end}}{{if eq $field.Default ""}}{{else}} default:{{$field.Default}};{{end}} comment:{{$field.Comment}};"`
+	{{$field.GoName}} {{$field.GoType}} `json:"{{lc $field.Name}}" gorm:"type:{{$field.GormType}};{{if $field.Nullable}}{{else}} not null;{{end}}{{if eq $field.Default ""}}{{else}} default:{{$field.Default}};{{end}} comment:{{$field.Comment}};"`
 	{{- end }}
 }
 
-func (e {{uc .Name}}) TableName() string {
+func ({{uc .Trim}}) TableName() string {
 	return "{{if eq $.Schema "public"}}{{.Name}}{{else}}{{.Schema}}.{{.Name}}{{end}}"
 }
 
-func (e {{uc .Name}}) TableComment() string {
+func ({{uc .Trim}}) TableComment() string {
 	return "{{.Comment}}"
 }
 
-func (e {{uc .Name}}) InitData() any {
+func ({{uc .Trim}}) InitData() any {
 	return nil
 }

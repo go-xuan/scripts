@@ -1,11 +1,12 @@
-app: nkdx_screen
+app: quan_user
 frame: go-quanx
 output: D:\Code\Go\src\github.com\go-xuan
+tablePrefix: t_sys_
 db:
   type: postgres
   host: localhost
   port: 5432
   username: postgres
   password: postgres
-  database: screen
-  schema: nkdx
+  database: quan_user
+  schema: public

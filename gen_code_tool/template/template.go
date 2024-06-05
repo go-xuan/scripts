@@ -63,10 +63,8 @@ func GoQuanxTemplates() []*Tmpl {
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/controller/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/logic/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/dao/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/{{table}}.go.tmpl", DataType: common.TableData,
-		FuncMap: template.FuncMap{"uc": stringx.ToUpperCamel, "lc": stringx.ToLowerCamel, "go_type": common.DB2GoType}})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/entity/{{table}}.go.tmpl", DataType: common.TableData,
-		FuncMap: template.FuncMap{"uc": stringx.ToUpperCamel, "lc": stringx.ToLowerCamel, "go_type": common.DB2GoType, "gorm_type": common.DB2GormType}})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/entity/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	return tmpls
 }
 

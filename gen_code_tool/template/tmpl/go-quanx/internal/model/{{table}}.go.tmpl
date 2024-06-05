@@ -1,1 +1,9 @@
 package model
+
+import "time"
+
+type {{uc .Trim}} struct {
+	{{- range $field := .Fields}}
+	{{$field.GoName}} {{$field.GoType}} `json:"{{lc $field.Name}}" comment:"{{$field.Comment}}"`
+	{{- end }}
+}

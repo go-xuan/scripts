@@ -11,6 +11,6 @@ import (
 func BindApiRouter(router *gin.RouterGroup) {
 	db := gormx.DB()
 	{{- range $table := .Tables}}
-	ginx.NewCrudApi[entity.{{uc $table.Name}}](router.Group("{{lc $table.Name}}"), db) // {{$table.Comment}}-增删改查
+	ginx.NewCrudApi[entity.{{uc $table.Trim}}](router.Group("{{lc $table.Trim}}"), db) // {{$table.Comment}}-增删改查
 	{{- end}}
 }

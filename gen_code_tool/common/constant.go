@@ -37,7 +37,6 @@ const (
 	Bigint    = "bigint"
 	Float4    = "float4"
 	Numeric   = "numeric" // 数字
-	Numeric6  = "numeric(10,6)"
 	Numeric2  = "numeric(10,2)"
 	Decimal   = "decimal"
 	Timestamp = "timestamp"

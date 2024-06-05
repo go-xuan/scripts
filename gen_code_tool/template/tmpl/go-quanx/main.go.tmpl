@@ -12,7 +12,7 @@ func main() {
 	engine.AddGinRouter(router.BindApiRouter)
 	engine.AddTable(
 		{{- range $table := .Tables}}
-		&entity.{{uc $table.Name}}{},
+		&entity.{{uc $table.Trim}}{},
     	{{- end}}
 	)
 	// 初始化路由
