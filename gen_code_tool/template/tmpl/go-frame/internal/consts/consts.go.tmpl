@@ -1,0 +1,17 @@
+package consts
+
+const (
+	OpenAPIServerName  = "{{.App}}"
+	OpenAPITitle       = `{{.App}}-v1`
+	OpenAPIDescription = `基于GoFrame2.0的后台服务`
+	OpenAPIContactUrl  = ""
+)
+
+type Enum struct {
+	Key   string `json:"Key"`   // 字典EKY
+	Value string `json:"value"` // 字典值
+}
+
+var (
+	NoRows = Enum{Key: "sql: no rows in result set", Value: "暂无数据，请刷新后重试"}
+)

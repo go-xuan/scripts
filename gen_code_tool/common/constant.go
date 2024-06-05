@@ -8,9 +8,9 @@ const (
 	GoFrame    = "go-frame"
 	SpringBoot = "spring-boot"
 	// DataType
-	NoData    = "no"
-	TableData = "table"
-	AppData   = "app"
+	NoData        = "no"
+	TableData     = "table"
+	GeneratorData = "generator"
 )
 
 // 随机数生成器-数据类型

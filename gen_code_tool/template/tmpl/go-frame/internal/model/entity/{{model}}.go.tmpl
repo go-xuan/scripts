@@ -1,0 +1,14 @@
+// =================================================================================
+// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
+// =================================================================================
+
+package entity
+
+import "time"
+
+// {{uc .Name}} is the golang structure for table {{if eq $.Schema "public"}}{{.Name}}{{else}}{{.Schema}}.{{.Name}}{{end}}.
+type {{uc .Name}} struct {
+	{{- range $field := .Fields }}
+	{{$field.GoName}} {{$field.GoType}} `json:"{{lc $field.Name}}" description:"{{$field.Comment}}"`
+	{{- end }}
+}

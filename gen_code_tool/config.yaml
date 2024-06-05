@@ -1,5 +1,6 @@
 app: quan_user
-frame: go-quanx
+#frame: go-quanx
+frame: go-frame
 output: D:\Code\Go\src\github.com\go-xuan
 tablePrefix: t_sys_
 db:

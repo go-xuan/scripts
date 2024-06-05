@@ -1,0 +1,63 @@
+package controller
+
+import (
+	"context"
+
+	"{{.App}}/api/v1/model"
+	"{{.App}}/internal/logic"
+)
+
+type {{uc .Name}} struct {
+	BaseController
+}
+
+func (c {{uc .Name}}) List(ctx context.Context, req *model.{{uc .Name}}ListReq) (*model.{{uc .Name}}ListRes, error) {
+	if rows, err := logic.{{uc .Name}}.List(ctx, req); err != nil {
+		return nil, err
+	} else {
+		return &model.{{uc .Name}}ListRes{Rows: rows}, nil
+	}
+}
+
+func (c {{uc .Name}}) Page(ctx context.Context, req *model.{{uc .Name}}PageReq) (*model.{{uc .Name}}PageRes, error) {
+	if page, err := logic.{{uc .Name}}.Page(ctx, req); err != nil {
+		return nil, err
+	} else {
+        return &model.{{uc .Name}}PageRes{PageRes: page}, nil
+	}
+}
+
+func (c {{uc .Name}}) Add(ctx context.Context, req *model.{{uc .Name}}AddReq) (*model.IdRes, error) {
+	if err := logic.{{uc .Name}}.Add(ctx, req.{{uc .Name}}); err != nil {
+		return nil, err
+	} else {
+		return &model.IdRes{Id: req.Id}, nil
+	}
+}
+
+func (c {{uc .Name}}) Update(ctx context.Context, req *model.{{uc .Name}}UpdateReq) (*model.IdRes, error) {
+	if err := logic.{{uc .Name}}.Update(ctx, req.{{uc .Name}}); err != nil {
+		return nil, err
+	} else {
+		return &model.IdRes{Id: req.Id}, nil
+	}
+}
+
+func (c {{uc .Name}}) Detail(ctx context.Context, req *model.{{uc .Name}}DetailReq) (*model.{{uc .Name}}DetailRes, error) {
+	if detail, err := logic.{{uc .Name}}.Detail(ctx, req.Id); err != nil {
+		return nil, err
+	} else {
+		return &model.{{uc .Name}}DetailRes{
+		    {{uc .Name}}: detail,
+		}, nil
+	}
+}
+
+func (c {{uc .Name}}) Delete(ctx context.Context, req *model.{{uc .Name}}DeleteReq) (*model.NullRes, error) {
+	if err := logic.{{uc .Name}}.Delete(ctx, req); err != nil {
+		return nil, err
+	} else {
+	    return nil, nil
+	}
+}
+

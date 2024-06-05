@@ -1,0 +1,69 @@
+package model
+
+import (
+	"strconv"
+	"strings"
+)
+
+// =========================================== req ===========================================
+
+// 批量主键请求参数
+type StringIds struct {
+	Ids []string `json:"ids" description:"主键ID数组" v:"required"` // 主键ID
+}
+
+// 分页参数
+type Page struct {
+	Offset int `json:"offset" description:"分页偏移量" v:"required#缺少表格偏移量参数"`
+	Limit  int `json:"limit" description:"限制条数" v:"required#缺少表格展示条数参数"`
+}
+
+// 获取分页sql
+func (p *Page) GetPgPageSql() string {
+	if p != nil && p.Limit != 0 {
+		pageSql := strings.Builder{}
+		pageSql.WriteString(` limit `)
+		pageSql.WriteString(strconv.Itoa(p.Limit))
+		pageSql.WriteString(` offset `)
+		pageSql.WriteString(strconv.Itoa(p.Offset))
+		return pageSql.String()
+	}
+	return ""
+}
+
+// BuildResp 构建分页响应
+func (p *Page) BuildResp(rows interface{}, total int) (resp *PageRes) {
+	resp = &PageRes{Total: total, Rows: rows}
+	if p != nil && p.Limit != 0 {
+		resp.Offset = p.Offset
+		resp.Limit = p.Limit
+	}
+	return
+}
+
+// 排序参数
+type Sort struct {
+	Id       string `json:"id"       description:"主键ID" v:"required"`
+	NewIndex int    `json:"newIndex" description:"新下标" v:"required"`
+	OldIndex int    `json:"oldIndex" description:"原下标" v:"required"`
+}
+
+
+
+// =========================================== res ===========================================
+
+// nil响应
+type NullRes struct{}
+
+// 批量主键请求参数
+type IdRes struct {
+	Id any `json:"id" description:"主键ID"` // 主键ID
+}
+
+// 分页响应
+type PageRes struct {
+	Offset int         `json:"offset" description:""` // 分页偏移量
+	Limit  int         `json:"limit"  description:""` // 分页大小
+	Total  int         `json:"total"  description:""` // 结果总量
+	Rows   interface{} `json:"rows"   description:""` // 返回结果集
+}

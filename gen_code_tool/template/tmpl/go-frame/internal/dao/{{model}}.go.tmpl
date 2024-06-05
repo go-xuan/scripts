@@ -1,0 +1,83 @@
+package dao
+
+import (
+	"context"
+	"errors"
+
+	"github.com/gogf/gf/v2/frame/g"
+
+	"{{.App}}/api/v1/model"
+	"{{.App}}/internal/consts"
+	"{{.App}}/internal/dao/internal"
+	"{{.App}}/internal/model/entity"
+)
+
+// internal{{uc .Name}}Dao is internal type for wrapping internal DAO implements.
+type internal{{uc .Name}}Dao = *internal.{{uc .Name}}Dao
+
+// {{lc .Name}}Dao is the data access object for table {{.Table}}.
+// You can define custom methods on it to extend its functionality as you wish.
+type {{lc .Name}}Dao struct {
+	internal{{uc .Name}}Dao
+}
+
+var (
+	// {{uc .Name}} is globally public accessible object for table {{.Table}} operations.
+	{{uc .Name}} = {{lc .Name}}Dao{
+		internal.New{{uc .Name}}Dao(),
+	}
+)
+
+// Fill with you ideas below.
+func (dao {{lc .Name}}Dao) Page(ctx context.Context, req *model.{{uc .Name}}PageReq) (rows []*entity.{{uc .Name}}, count int, err error) {
+	var m = dao.Ctx(ctx)
+	if count, err = m.Count(); err != nil {
+		return
+	}
+	if page := req.Page; page != nil && req.Page.Limit > 0 {
+		m = m.Offset(page.Offset).Limit(page.Limit)
+	}
+	if err = m.Order(dao.Columns().Id).Scan(&rows); err != nil {
+    	return
+    }
+	return
+}
+
+func (dao {{lc .Name}}Dao) List(ctx context.Context) (result []*entity.{{uc .Name}}, err error) {
+	if err = dao.Ctx(ctx).Scan(&result); err != nil {
+		return
+	}
+	return
+}
+
+func (dao {{lc .Name}}Dao) Create(ctx context.Context, data *entity.{{uc .Name}}) error {
+	if _, err := dao.Ctx(ctx).Data(data).Insert(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (dao {{lc .Name}}Dao) Update(ctx context.Context, id any, data g.Map) error {
+	if _, err := dao.Ctx(ctx).Data(data).Where(dao.Columns().Id, id).Update(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (dao {{lc .Name}}Dao) QueryById(ctx context.Context, id string) (result *entity.{{uc .Name}}, err error) {
+	result = &entity.{{uc .Name}}{}
+	if err = dao.Ctx(ctx).Where(dao.Columns().Id, id).Scan(result); err != nil {
+		if err.Error() == consts.NoRows.Key {
+			err = errors.New(consts.NoRows.Value)
+		}
+		return
+	}
+	return
+}
+
+func (dao {{lc .Name}}Dao) DeleteByIds(ctx context.Context, ids []string) error {
+	if _, err := dao.Ctx(ctx).Delete("id in (?)", ids); err != nil {
+		return err
+	}
+	return nil
+}

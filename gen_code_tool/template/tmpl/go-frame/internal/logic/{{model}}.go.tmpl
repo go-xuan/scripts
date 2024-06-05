@@ -1,0 +1,56 @@
+package logic
+
+import (
+	"context"
+
+	"github.com/gogf/gf/v2/frame/g"
+	
+	"{{.App}}/api/v1/model"
+	"{{.App}}/internal/dao"
+	"{{.App}}/internal/model/entity"
+	"{{.App}}/utility/utils"
+)
+
+var {{uc .Name}} = {{lc .Name}}Impl{}
+
+type {{lc .Name}}Impl struct {}
+
+func (i {{lc .Name}}Impl) List(ctx context.Context, req *model.{{uc .Name}}ListReq) (list []*entity.{{uc .Name}}, err error) {
+	if list, err = dao.{{uc .Name}}.List(ctx); err != nil {
+		return
+	}
+	return
+}
+
+func (i {{lc .Name}}Impl) Page(ctx context.Context, req *model.{{uc .Name}}PageReq) (result *model.PageRes, err error) {
+	var rows []*entity.{{uc .Name}}
+	var total int
+	if rows, total, err = dao.{{uc .Name}}.Page(ctx, req); err != nil {
+		return
+	}
+	result = req.Page.BuildResp(rows, total)
+	return
+}
+
+func (i {{lc .Name}}Impl) Add(ctx context.Context, data *entity.{{uc .Name}}) error {
+	data.Id = utils.SnowFlake().Int64()
+    return dao.{{uc .Name}}.Create(ctx, data)
+}
+
+func (i {{lc .Name}}Impl) Update(ctx context.Context, update *entity.{{uc .Name}}) error {
+	columns := dao.{{uc .Name}}.Columns()
+	var data = g.Map{
+	    {{- range $field := .Fields }}
+		columns.{{uc $field.Name}}: update.{{uc $field.Name}},
+		{{- end }}
+	}
+    return dao.{{uc .Name}}.Update(ctx, update.Id, data)
+}
+
+func (i {{lc .Name}}Impl) Detail(ctx context.Context, id string) (*entity.{{uc .Name}}, error) {
+	return dao.{{uc .Name}}.QueryById(ctx, id)
+}
+
+func (i {{lc .Name}}Impl) Delete(ctx context.Context, req *model.{{uc .Name}}DeleteReq) error {
+    return dao.{{uc .Name}}.DeleteByIds(ctx, req.Ids)
+}

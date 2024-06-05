@@ -102,6 +102,7 @@ func (c *Config) GetModels() (result []*Model, err error) {
 				}
 			} else {
 				models[table] = &Model{
+					App:          c.App,
 					Table:        table,
 					Name:         c.Trim(table),
 					Schema:       field.Schema,
@@ -146,7 +147,7 @@ func (gen *Generator) GenCode() (err error) {
 						return
 					}
 				}
-			case common.AppData:
+			case common.GeneratorData:
 				if err = tmpl.WriteCodeToFile(gen.Root, gen); err != nil {
 					return
 				}
@@ -157,6 +158,7 @@ func (gen *Generator) GenCode() (err error) {
 }
 
 type Model struct {
+	App          string   `json:"app"`          // 应用名
 	Table        string   `json:"table"`        // 表名
 	Name         string   `json:"name"`         // 模型名
 	Schema       string   `json:"schema"`       // schema

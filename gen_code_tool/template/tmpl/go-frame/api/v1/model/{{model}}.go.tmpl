@@ -1,0 +1,48 @@
+package model
+
+import (
+	"github.com/gogf/gf/v2/frame/g"
+
+	"{{.App}}/internal/model/entity"
+)
+
+type {{uc .Name}}ListReq struct {
+	g.Meta  `path:"/{{lc .Name}}/page" tags:"{{.Comment}}" method:"post" summary:"列表查询"`
+}
+
+type {{uc .Name}}ListRes struct {
+    Rows []*entity.{{uc .Name}} `json:"rows"`
+}
+
+type {{uc .Name}}PageReq struct {
+	g.Meta  `path:"/{{lc .Name}}/page" tags:"{{.Comment}}" method:"post" summary:"分页查询"`
+	*Page
+}
+
+type {{uc .Name}}PageRes struct {
+    *PageRes
+}
+
+type {{uc .Name}}DetailReq struct {
+	g.Meta `path:"/{{lc .Name}}/detail" tags:"{{.Comment}}" method:"get" summary:"详情"`
+	Id     string `json:"id" p:"id" description:"主键ID" v:"required"` // 主键ID
+}
+
+type {{uc .Name}}DetailRes struct {
+	*entity.{{uc .Name}}
+}
+
+type {{uc .Name}}AddReq struct {
+	g.Meta `path:"/{{lc .Name}}/add" tags:"{{.Comment}}" method:"get" summary:"新增"`
+	*entity.{{uc .Name}}
+}
+
+type {{uc .Name}}UpdateReq struct {
+	g.Meta `path:"/{{lc .Name}}/update" tags:"{{.Comment}}" method:"get" summary:"更新"`
+	*entity.{{uc .Name}}
+}
+
+type {{uc .Name}}DeleteReq struct {
+	g.Meta  `path:"/module/delete" tags:"{{.Comment}}" method:"post" summary:"删除"`
+	StringIds
+}

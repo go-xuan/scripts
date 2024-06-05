@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"context"
+
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/net/goai"
@@ -11,8 +12,8 @@ import (
 	"redbird.hub/redbird/micro-public/global/global_config"
 	"redbird.hub/redbird/micro-public/util/server_util"
 
-	"screen/internal/consts"
-	"screen/internal/router"
+	"{{.App}}/internal/consts"
+	"{{.App}}/internal/router"
 )
 
 var (
@@ -30,7 +31,6 @@ var (
 				group.Middleware(
 					auth.Middleware().CORS, // 跨域处理
 					auth.Middleware().Ctx,  // 上下文
-					//response.MiddlewareHandlerResponse,
 				)
 				router.BindController(group) // 绑定路由
 			})

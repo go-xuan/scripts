@@ -9,6 +9,8 @@ import (
 func BindController(group *ghttp.RouterGroup) {
 	group.Middleware(controller.BaseController{}.Response)
 	group.Bind(
-		controller.Screen{},
+		{{- range $model := .Models}}
+		controller.{{uc $model.Name}}{},
+    	{{- end}}
 	)
 }

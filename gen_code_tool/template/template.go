@@ -54,34 +54,42 @@ func (t *Tmpl) WriteCodeToFile(root string, data any, model ...string) (err erro
 func GoQuanxTemplates() []*Tmpl {
 	var frame = common.GoQuanx
 	var tmpls []*Tmpl
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "main.go.tmpl", DataType: common.AppData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "go.mod.tmpl", DataType: common.AppData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "common/consts.go.tmpl", DataType: common.NoData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "conf/config.yaml.tmpl", DataType: common.AppData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "conf/database.yaml.tmpl", DataType: common.AppData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/router/router.go.tmpl", DataType: common.AppData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "conf/config.yaml.tmpl", DataType: common.GeneratorData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "conf/database.yaml.tmpl", DataType: common.GeneratorData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/controller/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/logic/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/dao/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/entity/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/router/router.go.tmpl", DataType: common.GeneratorData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/router/router.go.tmpl", DataType: common.GeneratorData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "go.mod.tmpl", DataType: common.GeneratorData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "main.go.tmpl", DataType: common.GeneratorData, FuncMap: funcs})
 	return tmpls
 }
 
 func GoFrameTemplates() []*Tmpl {
 	var frame = common.GoFrame
 	var tmpls []*Tmpl
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "main.go.tmpl", DataType: common.AppData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "go.mod.tmpl", DataType: common.NoData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "consts/consts.go.tmpl", DataType: common.NoData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "manifest/config/global_conf/nacos.yaml.tmpl", DataType: common.NoData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/router/router.go.tmpl", DataType: common.AppData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "api/v1/model/base.go.tmpl", DataType: common.NoData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "api/v1/model/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "hack/config.yaml.tmpl", DataType: common.GeneratorData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/cmd/cmd.go.tmpl", DataType: common.GeneratorData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/consts/consts.go.tmpl", DataType: common.GeneratorData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/controller/base.go.tmpl", DataType: common.NoData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/controller/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/logic/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/dao/internal/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/dao/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/do/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/entity/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/router/router.go.tmpl", DataType: common.GeneratorData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "manifest/config/global_conf/nacos.yaml.tmpl", DataType: common.NoData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "utility/utils/snowflake.go.tmpl", DataType: common.NoData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "go.mod.tmpl", DataType: common.GeneratorData})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "main.go.tmpl", DataType: common.GeneratorData})
 	return tmpls
 }
 

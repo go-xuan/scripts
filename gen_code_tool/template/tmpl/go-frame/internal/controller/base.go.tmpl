@@ -10,8 +10,7 @@ type Response struct {
 	Data      any    `json:"data"`
 }
 
-type BaseController struct {
-}
+type BaseController struct {}
 
 // Init 自动执行的初始化方法
 func (c BaseController) Init(r *ghttp.Request) {}

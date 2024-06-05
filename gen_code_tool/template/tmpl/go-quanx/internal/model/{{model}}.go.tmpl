@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type {{uc .Trim}} struct {
+type {{uc .Name}} struct {
 	{{- range $field := .Fields}}
 	{{$field.GoName}} {{$field.GoType}} `json:"{{lc $field.Name}}" comment:"{{$field.Comment}}"`
 	{{- end }}
