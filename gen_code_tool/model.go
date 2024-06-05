@@ -47,9 +47,9 @@ func (c *Config) Root() string {
 
 func (c *Config) Generator() *Generator {
 	generator := &Generator{App: config.App, Root: config.Root(), DB: config.DB, Tmpls: config.Tmpls()}
-	// 查询数据表
-	if tables, err := config.QueryTables(); err == nil {
-		generator.Tables = tables
+	// 查询应用数据库表对应模型
+	if models, err := config.GetModels(); err == nil {
+		generator.Models = models
 	}
 	return generator
 }
@@ -64,7 +64,7 @@ func (c *Config) Trim(table string) string {
 	return table
 }
 
-func (c *Config) QueryTables() (result []*Table, err error) {
+func (c *Config) GetModels() (result []*Model, err error) {
 	var fields []*Field
 	var gormDB *gorm.DB
 	if gormDB, err = c.DB.NewGormDB(); err == nil && gormDB != nil {
@@ -84,50 +84,51 @@ func (c *Config) QueryTables() (result []*Table, err error) {
 		}
 	}
 	if len(fields) > 0 {
-		var tableMap = make(map[string]*Table)
+		var models = make(map[string]*Model)
 		for _, field := range fields {
 			field.GoName = stringx.ToUpperCamel(field.Name)
 			field.GoType = common.DB2GoType(field.Type)
 			field.GormType = common.DB2GormType(field.Type)
 			field.JavaType = common.DB2JavaType(field.Type)
 			var nameLen, typeLen = len(field.GoName), len(field.GoType)
-			var tableName = field.TableName
-			if _, ok := tableMap[tableName]; ok {
-				tableMap[tableName].Fields = append(tableMap[tableName].Fields, field)
-				if tableMap[tableName].ModelNameLen < nameLen {
-					tableMap[tableName].ModelNameLen = nameLen
+			var table = field.TableName
+			if _, ok := models[table]; ok {
+				models[table].Fields = append(models[table].Fields, field)
+				if models[table].FiledNameLen < nameLen {
+					models[table].FiledNameLen = nameLen
 				}
-				if tableMap[tableName].ModelTypeLen < typeLen {
-					tableMap[tableName].ModelTypeLen = typeLen
+				if models[table].FiledTypeLen < typeLen {
+					models[table].FiledTypeLen = typeLen
 				}
 			} else {
-				tableMap[tableName] = &Table{
-					Name:         tableName,
-					Trim:         c.Trim(tableName),
+				models[table] = &Model{
+					Table:        table,
+					Name:         c.Trim(table),
 					Schema:       field.Schema,
 					Comment:      field.TableComment,
-					ModelNameLen: nameLen,
-					ModelTypeLen: typeLen,
+					FiledNameLen: nameLen,
+					FiledTypeLen: typeLen,
 					Fields:       []*Field{field},
 				}
 			}
 		}
-		for _, table := range tableMap {
-			for _, field := range table.Fields {
-				field.GoName = stringx.Fill(field.GoName, " ", table.ModelNameLen, true)
-				field.GoType = stringx.Fill(field.GoType, " ", table.ModelTypeLen, true)
+		for _, model := range models {
+			for _, field := range model.Fields {
+				field.GoName = stringx.Fill(field.GoName, " ", model.FiledNameLen, true)
+				field.GoType = stringx.Fill(field.GoType, " ", model.FiledTypeLen, true)
 			}
-			result = append(result, table)
+			result = append(result, model)
 		}
 	}
 	return
 }
 
+// 代码生成器
 type Generator struct {
 	App    string           // 应用名
 	Root   string           // 代码生成路径
 	DB     *gormx.Database  // 应用数据库
-	Tables []*Table         // 表结构
+	Models []*Model         // 模型列表
 	Tmpls  []*template.Tmpl // 模板
 }
 
@@ -140,8 +141,8 @@ func (gen *Generator) GenCode() (err error) {
 					return
 				}
 			case common.TableData:
-				for _, table := range gen.Tables {
-					if err = tmpl.WriteCodeToFile(gen.Root, table, table.Trim); err != nil {
+				for _, model := range gen.Models {
+					if err = tmpl.WriteCodeToFile(gen.Root, model, model.Name); err != nil {
 						return
 					}
 				}
@@ -155,13 +156,13 @@ func (gen *Generator) GenCode() (err error) {
 	return
 }
 
-type Table struct {
-	Name         string   `json:"name"`         // 表名
-	Trim         string   `json:"trim"`         // 去除前后缀表名
+type Model struct {
+	Table        string   `json:"table"`        // 表名
+	Name         string   `json:"name"`         // 模型名
 	Schema       string   `json:"schema"`       // schema
 	Comment      string   `json:"comment"`      // 表备注
-	ModelNameLen int      `json:"modelNameLen"` // 模型字段名称长度
-	ModelTypeLen int      `json:"modelTypeLen"` // 模型字段类型长度
+	FiledNameLen int      `json:"filedNameLen"` // 字段名称长度
+	FiledTypeLen int      `json:"filedTypeLen"` // 字段类型长度
 	Fields       []*Field `json:"fields"`       // 字段列表
 }
 

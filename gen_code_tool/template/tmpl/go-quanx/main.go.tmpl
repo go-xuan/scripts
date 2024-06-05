@@ -8,11 +8,11 @@ import (
 )
 
 func main() {
-	var engine = app.DefaultEngine()
+	var engine = app.NewEngine()
 	engine.AddGinRouter(router.BindApiRouter)
 	engine.AddTable(
-		{{- range $table := .Tables}}
-		&entity.{{uc $table.Trim}}{},
+		{{- range $model := .Models}}
+		&entity.{{uc $model.Name}}{},
     	{{- end}}
 	)
 	// 初始化路由

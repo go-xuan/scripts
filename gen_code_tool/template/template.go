@@ -33,11 +33,11 @@ func (t *Tmpl) Template() *template.Template {
 	return template.Must(template.New(t.Path).Funcs(t.FuncMap).Parse(string(content)))
 }
 
-func (t *Tmpl) WriteCodeToFile(root string, data any, table ...string) (err error) {
+func (t *Tmpl) WriteCodeToFile(root string, data any, model ...string) (err error) {
 	var dir, file = filepath.Split(t.Path)
 	file = strings.TrimSuffix(file, ".tmpl")
-	if len(table) > 0 {
-		file = strings.Replace(file, "{{table}}", table[0], -1)
+	if len(model) > 0 {
+		file = strings.Replace(file, "{{model}}", model[0], -1)
 	}
 	if file = filepath.Join(root, dir, file); needWrite(file) {
 		var buf = &bytes.Buffer{}
@@ -60,11 +60,11 @@ func GoQuanxTemplates() []*Tmpl {
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "conf/config.yaml.tmpl", DataType: common.AppData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "conf/database.yaml.tmpl", DataType: common.AppData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/router/router.go.tmpl", DataType: common.AppData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/controller/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/logic/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/dao/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/entity/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/controller/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/logic/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/dao/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/entity/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	return tmpls
 }
 
@@ -76,12 +76,12 @@ func GoFrameTemplates() []*Tmpl {
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "consts/consts.go.tmpl", DataType: common.NoData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "manifest/config/global_conf/nacos.yaml.tmpl", DataType: common.NoData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/router/router.go.tmpl", DataType: common.AppData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/controller/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/logic/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/dao/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/do/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/entity/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/controller/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/logic/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/dao/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/do/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "internal/model/entity/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	return tmpls
 }
 
@@ -90,11 +90,11 @@ func SpringBootTemplates() []*Tmpl {
 	var tmpls []*Tmpl
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/main.go.tmpl", DataType: common.NoData})
 	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/common/consts.go.tmpl", DataType: common.NoData})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/controller/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/logic/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/dao/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/model/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
-	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/model/entity/{{table}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/controller/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/logic/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/dao/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/model/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
+	tmpls = append(tmpls, &Tmpl{Frame: frame, Path: "spring-boot/model/entity/{{model}}.go.tmpl", DataType: common.TableData, FuncMap: funcs})
 	return tmpls
 }
 
