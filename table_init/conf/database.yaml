@@ -7,12 +7,21 @@
   password: postgres
   database: screen
   debug: true
-- source: hbkj
+- source: huawei
   enable: true
-  type: mysql
-  host: localhost
-  port: 3306
-  username: root
-  password: root
-  database: lightapps
+  type: postgres
+  host: 1.94.7.42
+  port: 8891
+  username: postgres
+  password: postgres
+  database: screen
+  debug: true
+- source: nkdx
+  enable: true
+  type: postgres
+  host: 192.168.2.248
+  port: 5432
+  username: postgres
+  password: PPJbh9z7zrRrH9a4
+  database: nkdx
   debug: true

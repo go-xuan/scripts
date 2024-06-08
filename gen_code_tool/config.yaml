@@ -1,7 +1,7 @@
-app: quan_user
+app: quan_user_gf
 #frame: go-quanx
 frame: go-frame
-output: D:\Code\Go\src\github.com\go-xuan
+output: D:\Code\Go\src\qc_gen
 tablePrefix: t_sys_
 db:
   type: postgres

@@ -2,6 +2,8 @@ package main
 
 import (
 	"github.com/go-xuan/quanx/app"
+	"github.com/go-xuan/quanx/utils/randx"
+
 	"table-init/entity"
 )
 
@@ -10,11 +12,16 @@ func main() {
 		app.NonGin,        // 不启用gin
 		app.MultiDatabase, // 多数据源
 	)
+	randx.IdCard()
 
-	engine.AddSourceTable("screen",
+	engine.AddSourceTable("nkdx",
 		&entity.ScreenIndicesStats{},
 		&entity.EnrollStudentsStats{},
 		&entity.SubjectConstruction{},
+		&entity.IndicesValue{},
+		&entity.EvaluationDepartmentRate{},
+		&entity.EvaluationCourseScore{},
+		&entity.EvaluationTeacherRatio{},
 	)
 	//
 	//engine.AddSourceTable("hbkj",

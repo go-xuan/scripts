@@ -2,8 +2,10 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"gorm.io/gorm"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/go-xuan/quanx/server/gormx"
@@ -184,6 +186,96 @@ type Field struct {
 	GoType       string `json:"goType"`       // go数据类型
 	GormType     string `json:"ormType"`      // orm字段类型
 	JavaType     string `json:"javaType"`     // Java字段类型
+}
+
+func (t *Model) SelectSql() string {
+	ss := "%" + strconv.Itoa(-t.FiledNameLen) + "s as %s,"
+	sb := strings.Builder{}
+	sb.WriteString("select ")
+	for i, field := range t.Fields {
+		if i > 0 {
+			sb.WriteString("\n")
+			sb.WriteString("       ")
+		}
+		sb.WriteString(fmt.Sprintf(ss, field.Name, stringx.ToLowerCamel(field.Name)))
+	}
+	sb.WriteString(",\n  from ")
+	sb.WriteString(t.Name)
+	return strings.ReplaceAll(sb.String(), ",,", "")
+}
+
+func (t *Model) InsertSql() string {
+	sb, iv := strings.Builder{}, strings.Builder{}
+	sb.WriteString("insert ")
+	sb.WriteString("into ")
+	sb.WriteString(t.Name)
+	sb.WriteString("\n(")
+	var i int
+	for _, field := range t.Fields {
+		var fieldName = field.Name
+		if ignoreField(fieldName) && field.Default != "" {
+			continue
+		}
+		if i > 0 {
+			sb.WriteString("\n")
+			iv.WriteString("\n")
+		}
+		sb.WriteString(fieldName)
+		sb.WriteString(",")
+		iv.WriteString("#{create.")
+		iv.WriteString(stringx.ToLowerCamel(fieldName))
+		iv.WriteString("},")
+		i++
+	}
+	sb.WriteString(",)\nvalues \n(")
+	sb.WriteString(iv.String())
+	sb.WriteString(",)")
+	return strings.ReplaceAll(sb.String(), ",,", "")
+}
+
+func (t *Model) UpdateSql() string {
+	sb := strings.Builder{}
+	sb.WriteString("update ")
+	sb.WriteString(t.Name)
+	sb.WriteString("\n<set>")
+	for _, field := range t.Fields {
+		var fieldName = field.Name
+		if ignoreField(fieldName) {
+			continue
+		}
+		lc := "update." + stringx.ToLowerCamel(fieldName)
+		sb.WriteString("\n\t")
+		if field.Type == common.Varchar {
+			sb.WriteString(fmt.Sprintf(`<if test="%s != null and %s != ''"> %s = #{%s}, </if>`, lc, lc, fieldName, lc))
+		} else {
+			sb.WriteString(fmt.Sprintf(`<if test="%s != null"> %s = #{%s}, </if>`, lc, fieldName, lc))
+		}
+	}
+	sb.WriteString("\n</set>")
+	sb.WriteString("\nwhere id = #{update.id}")
+	return strings.ReplaceAll(sb.String(), ",,", "")
+}
+
+// BASE基础字段映射
+func ignoreField(field string) bool {
+	switch field {
+	case "id":
+		return true
+	case "create_time":
+		return true
+	case "update_time":
+		return true
+	case "create_user_id":
+		return true
+	case "update_user_id":
+		return true
+	case "create_by":
+		return true
+	case "update_by":
+		return true
+	default:
+		return false
+	}
 }
 
 // 查询表字段列表
