@@ -1,11 +1,11 @@
-- source: screen
+- source: backup
   enable: true
   type: postgres
   host: localhost
   port: 5432
   username: postgres
   password: postgres
-  database: screen
+  database: backup_server
   debug: true
 - source: huawei
   enable: true

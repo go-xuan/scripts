@@ -12,7 +12,7 @@ type Staff struct {
 	Nation       string    `json:"nation" gorm:"type:varchar(500); comment:民族;"`
 	DepartmentId int       `json:"departmentId" gorm:"type:bigint; not null; comment:部门;"`
 	PostId       int       `json:"postId" gorm:"type:bigint; comment:岗位;"`
-	EntryTime    time.Time `json:"entryTime" gorm:"type:timestamp; default:now();comment:入职时间;"`
+	EntryTime    time.Time `json:"entryTime" gorm:"type:timestamp; default:now(); comment:入职时间;"`
 	CreateTime   time.Time `json:"createTime" gorm:"type:timestamp; default:now();comment:创建时间;"`
 	CreateBy     string    `json:"createBy" gorm:"type:varchar(255); comment:创建者;"`
 	UpdateTime   time.Time `json:"updateTime" gorm:"type:timestamp; default:now(); comment:更新时间;"`

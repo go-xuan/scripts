@@ -14,15 +14,25 @@ func main() {
 	)
 	randx.IdCard()
 
-	engine.AddSourceTable("nkdx",
-		&entity.ScreenIndicesStats{},
-		&entity.EnrollStudentsStats{},
-		&entity.SubjectConstruction{},
-		&entity.IndicesValue{},
-		&entity.EvaluationDepartmentRate{},
-		&entity.EvaluationCourseScore{},
-		&entity.EvaluationTeacherRatio{},
+	engine.AddSourceTable("backup",
+		&entity.BackupClient{},
+		&entity.BackupRepository{},
+		&entity.BackupTask{},
+		&entity.BackupTaskRecord{},
+		&entity.BackupTaskStep{},
+		&entity.BackupTaskStepRecord{},
 	)
+
+	//engine.AddSourceTable("nkdx",
+	//	&entity.ScreenIndicesStats{},
+	//	&entity.EnrollStudentsStats{},
+	//	&entity.SubjectConstruction{},
+	//	&entity.IndicesValue{},
+	//	&entity.EvaluationDepartmentRate{},
+	//	&entity.EvaluationCourseScore{},
+	//	&entity.EvaluationTeacherRatio{},
+	//)
+
 	//
 	//engine.AddSourceTable("hbkj",
 	//	&entity.HbkjAppUser{},
