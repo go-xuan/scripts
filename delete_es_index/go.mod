@@ -2,11 +2,8 @@ module delete_es_index
 
 go 1.22
 
-replace github.com/go-xuan/quanx v1.0.0 => ../../quanx
-
 require (
-	//github.com/go-xuan/quanx v1.24.426
-	github.com/go-xuan/quanx v1.0.0
+	github.com/go-xuan/quanx v1.24.622
 	github.com/olivere/elastic/v7 v7.0.32
 )
 

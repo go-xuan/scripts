@@ -1,8 +1,5 @@
 module sql_fmt
 
-go 1.22
+go 1.18
 
-replace github.com/go-xuan/quanx v1.24.426 => ../../quanx
-
-//github.com/go-xuan/quanx v1.0.0
-require github.com/go-xuan/quanx v1.24.426
+require github.com/go-xuan/quanx v1.24.622

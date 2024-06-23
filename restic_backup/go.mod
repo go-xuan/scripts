@@ -1,7 +1,5 @@
 module restic_backup
 
-go 1.22
+go 1.18
 
-replace github.com/go-xuan/quanx v1.24.510 => ../../quanx
-
-require github.com/go-xuan/quanx v1.24.510
+require github.com/go-xuan/quanx v1.24.622

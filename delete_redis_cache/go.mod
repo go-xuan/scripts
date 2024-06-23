@@ -1,8 +1,8 @@
 module delete_redis_cache
 
-go 1.22
+go 1.18
 
-require github.com/redis/go-redis/v9 v9.5.1
+require github.com/redis/go-redis/v9 v9.5.3
 
 require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect

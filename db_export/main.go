@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-xuan/quanx/utils/filex"
-	"github.com/go-xuan/quanx/utils/officex/excelx"
+	"github.com/go-xuan/quanx/os/filex"
+	"github.com/go-xuan/quanx/os/filex/excelx"
 	"github.com/tealeg/xlsx"
 	"github.com/tidwall/gjson"
 	"gopkg.in/yaml.v3"
