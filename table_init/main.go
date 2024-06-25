@@ -15,6 +15,9 @@ func main() {
 	randx.IdCard()
 
 	engine.AddSourceTable("backup",
+		&entity.BackupDatabase{},
+		&entity.BackupDatabaseDump{},
+		&entity.BackupDatabase{},
 		&entity.BackupClient{},
 		&entity.BackupRepository{},
 		&entity.BackupTask{},

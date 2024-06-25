@@ -1,10 +1,19 @@
+#- source: backup
+#  enable: true
+#  type: postgres
+#  host: localhost
+#  port: 5432
+#  username: postgres
+#  password: postgres
+#  database: backup_server
+#  debug: true
 - source: backup
   enable: true
   type: postgres
-  host: localhost
+  host: 192.168.2.250
   port: 5432
   username: postgres
-  password: postgres
+  password: PPJbh9z7zrRrH9a4
   database: backup_server
   debug: true
 - source: huawei
