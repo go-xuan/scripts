@@ -1,12 +1,12 @@
-#- source: backup
-#  enable: true
-#  type: postgres
-#  host: localhost
-#  port: 5432
-#  username: postgres
-#  password: postgres
-#  database: backup_server
-#  debug: true
+- source: backup_mysql
+  enable: true
+  type: mysql
+  host: localhost
+  port: 3306
+  username: root
+  password: root
+  database: backup_server
+  debug: true
 - source: backup
   enable: true
   type: postgres

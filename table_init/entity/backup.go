@@ -38,7 +38,7 @@ type BackupDatabaseDump struct {
 	DatabaseId   int       `json:"databaseId"    gorm:"type:int4; not null; comment:数据库ID"`
 	DumpCmd      string    `json:"dumpCmd"       gorm:"type:varchar(2000); not null; comment:dump命令"`
 	DumpPath     string    `json:"dumpPath"      gorm:"type:varchar(1000); not null; comment:dump路径"`
-	Remark       string    `json:"remark"        gorm:"type:varchar(100); comment:执行备注"`
+	DumpOut      string    `json:"dumpOut"        gorm:"type:text; comment:dump输出"`
 	StartTime    time.Time `json:"startTime"     gorm:"type:timestamp; comment:开始时间"`
 	EndTime      time.Time `json:"endTime"       gorm:"type:timestamp; comment:结束时间"`
 	Status       int       `json:"status"        gorm:"type:int2; not null; comment:状态（1-进行中；2-成功；3-失败）"`
@@ -191,7 +191,7 @@ type BackupTaskStepRecord struct {
 	ClientIp     string    `json:"clientIp"      gorm:"type:varchar(100); comment:客户端IP"`
 	SnapshotId   string    `json:"snapshotId"    gorm:"type:varchar(100); comment:快照ID"`
 	Cmd          string    `json:"cmd"           gorm:"type:text; comment:执行命令"`
-	Result       string    `json:"result"        gorm:"type:text; comment:输出结果"`
+	Out          string    `json:"out"        gorm:"type:text; comment:输出结果"`
 }
 
 func (b BackupTaskStepRecord) TableName() string {
