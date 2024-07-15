@@ -1,0 +1,23 @@
+restic:
+  do: backup
+  backup:
+    tag:
+    host:
+    path: backup_data
+  repository:
+    uri: "s3:http://192.168.2.249:9000/restic/quanchao"
+    password: Admin@123
+    awsUser: minio
+    awsPassword: minio123
+datasource:
+  type: mysql
+  host: localhost
+  port: 3306
+  username: root
+  password: root
+  name: cgywtb_user
+  schema:
+  table:
+retry:
+  times: 3
+  interval: 3
